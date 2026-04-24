@@ -48,7 +48,8 @@ export const ADAPTER_REGISTRY = {
     boilerplate_r2: 'cetera/boilerplate.pdf',
     assets: [
       { ref: './cover-handshake.jpg', r2: 'cetera/cover-handshake.jpg', mime: 'image/jpeg' },
-      { ref: './cetera-logo-crop.png', r2: 'cetera/cetera-logo-crop.png', mime: 'image/png' }
+      { ref: './cetera-logo-crop.png', r2: 'cetera/cetera-logo-crop.png', mime: 'image/png' },
+      { ref: './cetera-logo.svg', r2: 'cetera/cetera-logo.svg', mime: 'image/svg+xml' }
     ],
     dynamic_pages: 3,
     boilerplate_pages: 19
