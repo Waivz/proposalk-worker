@@ -157,7 +157,7 @@ export async function handleRender(request, env, ctx) {
 // by default when printing.
 // -----------------------------------------------------------------------------
 async function renderHtmlToPdf(html, browserBinding) {
-  const browser = await puppeteer.launch(browserBinding);
+  const browser = await puppeteer.launch(browserBinding, { protocolTimeout: 120000 });
   try {
     const page = await browser.newPage();
     await page.setViewport({ width: 1056, height: 816, deviceScaleFactor: 2 });
