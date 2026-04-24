@@ -15,7 +15,7 @@
     "test:smoke": "bash scripts/smoke-test.sh"
   },
   "dependencies": {
-    "@cloudflare/puppeteer": "^0.0.14",
+    "@cloudflare/puppeteer": "^1.0.5",
     "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
