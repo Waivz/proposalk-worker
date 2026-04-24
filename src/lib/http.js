@@ -32,13 +32,25 @@ export function handlePreflight(request, env) {
  * Structured error response. Caller gets a consistent shape across endpoints:
  *   { "error": { "code": "...", "message": "...", ...extra } }
  */
-export function jsonError(status, code, message, extra = {}) {
+/**
+ * Structured error response with CORS headers. Caller gets a consistent shape
+ * across endpoints: { "error": { "code": "...", "message": "...", ...extra } }
+ *
+ * Pass the request and env to get origin-specific CORS headers. When they're
+ * not passed, falls back to wildcard CORS so browser clients can at least
+ * read the error body instead of getting a generic "No Access-Control-Allow-Origin
+ * header is present" browser-side error that masks the real problem.
+ */
+export function jsonError(status, code, message, extra = {}, request = null, env = null) {
   const body = { error: { code, message, ...extra } };
-  return new Response(JSON.stringify(body, null, 2), {
-    status,
-    headers: {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-store'
-    }
-  });
+  const headers = {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-store'
+  };
+  if (request && env) {
+    Object.assign(headers, corsHeaders(request, env));
+  } else {
+    headers['Access-Control-Allow-Origin'] = '*';
+  }
+  return new Response(JSON.stringify(body, null, 2), { status, headers });
 }
