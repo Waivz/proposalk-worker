@@ -73,6 +73,27 @@
     padding: 0.35in 0.6in 0 0.55in;
     display: flex; flex-direction: column;
   }
+  /* Logo lockup: SVG mark + vertical rule + "RETIREMENT PLAN SPECIALISTS" text */
+  .logo-lockup { display: flex; align-items: center; gap: 10px; }
+  .logo-lockup .mark { width: auto; display: block; }
+  .logo-lockup .rule {
+    align-self: stretch;
+    width: 1px; background: var(--cetera-purple);
+  }
+  .logo-lockup .stack {
+    display: flex; flex-direction: column; justify-content: center;
+    font-family: var(--body);
+    font-size: 9px; font-weight: 700;
+    color: var(--cetera-purple);
+    letter-spacing: 1.2px; line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  /* Cover-page sizing (larger) */
+  .cover-right .logo-lockup { margin-bottom: 18px; }
+  .cover-right .logo-lockup .mark { height: 42px; }
+  .cover-right .logo-lockup .stack { font-size: 11px; letter-spacing: 1.5px; }
+  /* Legacy class retained for backwards-compatibility; no longer emitted */
   .cover-right .cetera-logo {
     height: 42px; width: auto;
     margin-bottom: 18px;
@@ -116,6 +137,9 @@
   .masthead { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
   .masthead-logo { display: flex; align-items: center; }
   .masthead-logo img { height: 38px; width: auto; }
+  /* Masthead sizing for logo lockup */
+  .masthead-logo .logo-lockup .mark { height: 32px; }
+  .masthead-logo .logo-lockup .stack { font-size: 8px; letter-spacing: 1px; }
   .masthead-title {
     font-family: var(--body); font-size: 15px; font-weight: 400;
     color: var(--text); letter-spacing: 3px; text-transform: uppercase;
@@ -371,7 +395,11 @@
   <div class="cover-right">
     <div class="photo"></div>
     <div class="white-block">
-      <img class="cetera-logo" src="./cetera-logo-crop.png" alt="Cetera Retirement Plan Specialists">
+      <div class="logo-lockup" aria-label="Cetera Retirement Plan Specialists">
+        <img class="mark" src="./cetera-logo.svg" alt="Cetera">
+        <div class="rule"></div>
+        <div class="stack"><span>Retirement</span><span>Plan</span><span>Specialists</span></div>
+      </div>
       <h1 class="proposal-title">Plan Services Proposal</h1>
       <div class="prepared-label">PROPOSAL PREPARED FOR:</div>
       <div class="prepared-value" data-bind="sponsor.legal_name" data-placeholder="[Plan Sponsor Name]"></div>
@@ -387,7 +415,13 @@
 <!-- ============================================================= -->
 <div class="page content-page">
   <div class="masthead">
-    <div class="masthead-logo"><img src="./cetera-logo-crop.png" alt="Cetera"></div>
+    <div class="masthead-logo">
+      <div class="logo-lockup" aria-label="Cetera Retirement Plan Specialists">
+        <img class="mark" src="./cetera-logo.svg" alt="Cetera">
+        <div class="rule"></div>
+        <div class="stack"><span>Retirement</span><span>Plan</span><span>Specialists</span></div>
+      </div>
+    </div>
     <div class="masthead-title">PENSION FEASIBILITY STUDY</div>
   </div>
   <div class="purple-rule"></div>
@@ -514,7 +548,13 @@
 <!-- ============================================================= -->
 <div class="page content-page">
   <div class="masthead">
-    <div class="masthead-logo"><img src="./cetera-logo-crop.png" alt="Cetera"></div>
+    <div class="masthead-logo">
+      <div class="logo-lockup" aria-label="Cetera Retirement Plan Specialists">
+        <img class="mark" src="./cetera-logo.svg" alt="Cetera">
+        <div class="rule"></div>
+        <div class="stack"><span>Retirement</span><span>Plan</span><span>Specialists</span></div>
+      </div>
+    </div>
     <div class="masthead-title">PENSION FEASIBILITY STUDY</div>
   </div>
   <div class="purple-rule"></div>
