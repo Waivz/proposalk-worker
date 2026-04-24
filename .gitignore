@@ -1,0 +1,26 @@
+# Dependencies — installed by Cloudflare Workers Builds on every deploy
+node_modules/
+
+# Wrangler local state (only present if someone uses CLI locally)
+.wrangler/
+wrangler.log
+
+# Environment overrides (never commit)
+.env
+.env.*
+.dev.vars
+
+# Build output (if ever added)
+dist/
+build/
+
+# Editor / OS cruft
+.DS_Store
+*.swp
+*.log
+.vscode/
+.idea/
+
+# Test artifacts
+proposalk-smoke.pdf
+test/output/

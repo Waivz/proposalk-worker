@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://proposalk.waivz.ai/schema.json",
+  "title": "Proposal(k) Render Payload",
+  "description": "Contract for POST /render. This is the payload Design(k) Pro (or any upstream (k) Suite module) sends to Proposal(k) to generate a partner-branded plan services proposal PDF.",
+  "type": "object",
+  "required": ["sponsor", "scenario", "fees", "participants"],
+  "properties": {
+    "vendor": {
+      "type": "string",
+      "description": "Partner adapter key. Upstream Census(k) sets this based on file signature detection. Defaults to 'cetera' if omitted.",
+      "enum": ["cetera"]
+    },
+    "proposal_meta": {
+      "type": "object",
+      "description": "Metadata about the proposal itself — dates, plan year.",
+      "properties": {
+        "prepared_date": { "type": "string", "description": "Human-readable date (e.g., 'April 2026')" },
+        "plan_year": { "type": "integer" },
+        "plan_year_end": { "type": "string", "description": "Full date string (e.g., 'December 31, 2026')" }
+      }
+    },
+    "sponsor": {
+      "type": "object",
+      "description": "The plan sponsor — the business adopting the plan.",
+      "properties": {
+        "legal_name": { "type": ["string", "null"] },
+        "plan_name": { "type": ["string", "null"] },
+        "state": { "type": ["string", "null"], "description": "Two-letter state code (e.g., 'FL')" },
+        "entity_type": { "type": "string", "description": "e.g., 'LLC, Taxed as an S-Corporation'" },
+        "nature_of_business": { "type": "string" },
+        "participant_count_with_balances": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "description": "The plan design outcome from Design(k) Pro.",
+      "required": ["plan_type", "owner_contribution_total", "nonowner_er_contribution_total", "tax_savings_total"],
+      "properties": {
+        "plan_type": {
+          "type": "string",
+          "description": "Cetera-style label: 'Custom(k) Plan', 'Easy(k) Plan', '401(k) PSP with Cash Balance'."
+        },
+        "intent": { "type": "string", "description": "e.g., 'Maximize Owner Benefits'" },
+        "design_summary": { "type": "string" },
+        "owner_contribution_total": { "type": "number" },
+        "nonowner_er_contribution_total": { "type": "number" },
+        "owner_share_pct": {
+          "type": "number",
+          "description": "ADVISORY ONLY. The Worker's template recomputes this from the totals using Cetera's convention (Owner Total / (Owner Total + Non-Owner Total), deferral included). If upstream sends a different value, it will be overridden at render time."
+        },
+        "tax_savings_total": { "type": "number" },
+        "column_headers": {
+          "type": "object",
+          "description": "Per-scenario column labels for the participant detail table.",
+          "properties": {
+            "deferral": { "type": "string", "default": "Deferral" },
+            "er_1": { "type": "string", "description": "e.g., '3% Safe Harbor' or 'Safe Harbor Match'" },
+            "er_2": { "type": "string", "description": "e.g., 'Profit Sharing' or 'CB' for cash balance" }
+          }
+        }
+      }
+    },
+    "irs_limits": {
+      "type": "object",
+      "description": "IRS limits for the plan year. Template uses these to build the 402(g) footnote dynamically; values should come from Design(k)'s IRS limits block.",
+      "required": ["year"],
+      "properties": {
+        "year": { "type": "integer" },
+        "deferral_402g": { "type": "integer" },
+        "catch_up_50_59": { "type": "integer" },
+        "catch_up_60_63": { "type": "integer", "description": "SECURE 2.0 super catch-up (ages 60-63)" },
+        "section_415": { "type": "integer" },
+        "comp_cap_401a17": { "type": "integer" },
+        "hce_threshold": { "type": "integer" },
+        "key_employee_threshold": { "type": "integer" }
+      }
+    },
+    "fees": {
+      "type": "object",
+      "description": "Partner fee schedule. Comes from the partner adapter defaults, editable in the Proposal(k) review screen.",
+      "properties": {
+        "one_time_design": { "type": "number" },
+        "annual_base": { "type": "number" },
+        "participant_fee": { "type": "number" },
+        "cross_testing": { "type": "number" },
+        "fiduciary_316": { "type": "number" },
+        "annual_total": { "type": "number" },
+        "billing_frequency": {
+          "type": "object",
+          "description": "How each line item is billed.",
+          "properties": {
+            "design": { "type": "string" },
+            "base": { "type": "string" },
+            "participant": { "type": "string" },
+            "cross_testing": { "type": "string" },
+            "fiduciary_316": { "type": "string" }
+          }
+        }
+      }
+    },
+    "tax_credits": {
+      "type": "object",
+      "properties": {
+        "year_one": { "type": "number", "description": "First-year SECURE credit estimate (setup + per-NHCE)" },
+        "five_year": { "type": "number", "description": "Sum of 5-year credits" }
+      }
+    },
+    "participants": {
+      "type": "array",
+      "description": "Participant roster with allocations. Must contain at least one row with is_owner=true.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "plan_comp", "is_owner", "allocations"],
+        "properties": {
+          "name": { "type": "string" },
+          "dob": { "type": ["string", "null"], "description": "ISO YYYY-MM-DD" },
+          "hire_date": { "type": ["string", "null"], "description": "ISO YYYY-MM-DD" },
+          "term_date": { "type": ["string", "null"], "description": "ISO YYYY-MM-DD or null" },
+          "plan_comp": { "type": "number", "description": "Comp used for plan calc — already clipped to §401(a)(17) upstream" },
+          "is_owner": { "type": "boolean", "description": "True for direct >5% owners" },
+          "is_hce": { "type": "boolean" },
+          "is_spouse_attribution": {
+            "type": "boolean",
+            "description": "§318(a)(1) family attribution — set true for spouse/child/grandchild/parent of a direct owner. Sourced from Census(k)'s _isAttributedOwner + _familyRel='SPOUSE'."
+          },
+          "footnote_marks": {
+            "type": "array",
+            "description": "Footnote reference marks to render next to the participant's name (e.g., ['*', '†'] for the owner's compliance notes).",
+            "items": { "type": "string" }
+          },
+          "allocations": {
+            "type": "object",
+            "required": ["deferral", "er_1", "er_2", "total"],
+            "properties": {
+              "deferral": { "type": "number", "description": "402(g) + any catch-up for this participant" },
+              "er_1": { "type": "number", "description": "First ER contribution column (SHNE 3%, SH Match, etc.)" },
+              "er_2": { "type": "number", "description": "Second ER contribution column (Profit Sharing, CB credit, etc.)" },
+              "total": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "compliance_notes": {
+      "type": "array",
+      "description": "Per-participant footnotes that render under the detail table (keyed to footnote_marks in order: first note → '*', second → '†', third → '‡').",
+      "items": { "type": "string" }
+    }
+  }
+}

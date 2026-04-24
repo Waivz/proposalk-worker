@@ -1,0 +1,393 @@
+{
+  "vendor": "cetera",
+  "proposal_meta": {
+    "prepared_date": "April 2026",
+    "plan_year": 2026,
+    "plan_year_end": "December 31, 2026"
+  },
+  "sponsor": {
+    "legal_name": "Example Business, LLC",
+    "plan_name": "Example Business 401(k) Plan",
+    "state": "FL",
+    "entity_type": "LLC, Taxed as an S-Corporation",
+    "nature_of_business": "Evernt Rental Company",
+    "participant_count_with_balances": 20
+  },
+  "scenario": {
+    "plan_type": "Custom(k) Plan",
+    "intent": "Maximize Owner Benefits",
+    "design_summary": "Safe Harbor Non-Elective (3%) + New Comparability Profit Sharing",
+    "owner_contribution_total": 83250,
+    "nonowner_er_contribution_total": 58212,
+    "owner_share_pct": 58.9,
+    "tax_savings_total": 53351,
+    "column_headers": {
+      "deferral": "Deferral",
+      "er_1": "3% Safe Harbor",
+      "er_2": "Profit Sharing"
+    }
+  },
+  "irs_limits": {
+    "year": 2026,
+    "deferral_402g": 24500,
+    "catch_up_50_59": 8000,
+    "catch_up_60_63": 11250,
+    "section_415": 72000,
+    "comp_cap_401a17": 360000,
+    "hce_threshold": 160000,
+    "key_employee_threshold": 235000
+  },
+  "fees": {
+    "one_time_design": 1500,
+    "annual_base": 1400,
+    "participant_fee": 550,
+    "cross_testing": 750,
+    "fiduciary_316": 1000,
+    "annual_total": 2700,
+    "billing_frequency": {
+      "design": "One time",
+      "base": "Quarterly",
+      "participant": "Annually",
+      "cross_testing": "Annually",
+      "fiduciary_316": "Quarterly"
+    }
+  },
+  "tax_credits": {
+    "year_one": 9250,
+    "five_year": 31250
+  },
+  "participants": [
+    {
+      "name": "Michael Tremonti",
+      "dob": "1964-07-15",
+      "hire_date": "1995-06-01",
+      "term_date": null,
+      "plan_comp": 360000,
+      "is_owner": true,
+      "is_hce": true,
+      "is_spouse_attribution": false,
+      "footnote_marks": [
+        "*",
+        "\u2020"
+      ],
+      "allocations": {
+        "deferral": 35750,
+        "er_1": 10800,
+        "er_2": 36700,
+        "total": 83250
+      }
+    },
+    {
+      "name": "Patricia Tremonti",
+      "dob": "1967-09-22",
+      "hire_date": "1996-06-15",
+      "term_date": null,
+      "plan_comp": 85000,
+      "is_owner": false,
+      "is_hce": true,
+      "is_spouse_attribution": true,
+      "footnote_marks": [
+        "\u2021"
+      ],
+      "allocations": {
+        "deferral": 0,
+        "er_1": 2550,
+        "er_2": 977,
+        "total": 3527
+      }
+    },
+    {
+      "name": "Employee 2",
+      "dob": "1977-07-10",
+      "hire_date": "2012-04-02",
+      "term_date": null,
+      "plan_comp": 130000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 3900,
+        "er_2": 1494,
+        "total": 5394
+      }
+    },
+    {
+      "name": "Employee 3",
+      "dob": "1971-11-05",
+      "hire_date": "2008-09-08",
+      "term_date": null,
+      "plan_comp": 118000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 3540,
+        "er_2": 1356,
+        "total": 4896
+      }
+    },
+    {
+      "name": "Employee 4",
+      "dob": "1973-07-28",
+      "hire_date": "2010-05-17",
+      "term_date": null,
+      "plan_comp": 115000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 3450,
+        "er_2": 1321,
+        "total": 4771
+      }
+    },
+    {
+      "name": "Employee 5",
+      "dob": "1981-06-12",
+      "hire_date": "2015-08-10",
+      "term_date": null,
+      "plan_comp": 95000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 2850,
+        "er_2": 1092,
+        "total": 3942
+      }
+    },
+    {
+      "name": "Employee 6",
+      "dob": "1987-08-20",
+      "hire_date": "2019-03-11",
+      "term_date": null,
+      "plan_comp": 88000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 2640,
+        "er_2": 1011,
+        "total": 3651
+      }
+    },
+    {
+      "name": "Employee 7",
+      "dob": "1979-05-03",
+      "hire_date": "2017-07-05",
+      "term_date": null,
+      "plan_comp": 78000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 2340,
+        "er_2": 896,
+        "total": 3236
+      }
+    },
+    {
+      "name": "Employee 8",
+      "dob": "1984-10-17",
+      "hire_date": "2019-11-04",
+      "term_date": null,
+      "plan_comp": 72000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 2160,
+        "er_2": 827,
+        "total": 2987
+      }
+    },
+    {
+      "name": "Employee 9",
+      "dob": "1989-06-08",
+      "hire_date": "2020-02-24",
+      "term_date": null,
+      "plan_comp": 62000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 1860,
+        "er_2": 712,
+        "total": 2572
+      }
+    },
+    {
+      "name": "Employee 10",
+      "dob": "1996-12-05",
+      "hire_date": "2023-05-15",
+      "term_date": null,
+      "plan_comp": 52000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 1560,
+        "er_2": 598,
+        "total": 2158
+      }
+    },
+    {
+      "name": "Employee 11",
+      "dob": "1974-01-14",
+      "hire_date": "2014-06-20",
+      "term_date": null,
+      "plan_comp": 70000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 2100,
+        "er_2": 804,
+        "total": 2904
+      }
+    },
+    {
+      "name": "Employee 12",
+      "dob": "1991-07-28",
+      "hire_date": "2021-04-19",
+      "term_date": null,
+      "plan_comp": 66000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 1980,
+        "er_2": 758,
+        "total": 2738
+      }
+    },
+    {
+      "name": "Employee 13",
+      "dob": "1998-03-19",
+      "hire_date": "2022-09-12",
+      "term_date": null,
+      "plan_comp": 60000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 1800,
+        "er_2": 689,
+        "total": 2489
+      }
+    },
+    {
+      "name": "Employee 14",
+      "dob": "1988-09-11",
+      "hire_date": "2020-06-08",
+      "term_date": null,
+      "plan_comp": 72000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 2160,
+        "er_2": 827,
+        "total": 2987
+      }
+    },
+    {
+      "name": "Employee 15",
+      "dob": "1980-05-25",
+      "hire_date": "2018-10-22",
+      "term_date": null,
+      "plan_comp": 68000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 2040,
+        "er_2": 781,
+        "total": 2821
+      }
+    },
+    {
+      "name": "Employee 16",
+      "dob": "2000-02-15",
+      "hire_date": "2024-03-04",
+      "term_date": null,
+      "plan_comp": 48000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 1440,
+        "er_2": 551,
+        "total": 1991
+      }
+    },
+    {
+      "name": "Employee 17",
+      "dob": "2003-06-04",
+      "hire_date": "2024-07-22",
+      "term_date": null,
+      "plan_comp": 44000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 1320,
+        "er_2": 506,
+        "total": 1826
+      }
+    },
+    {
+      "name": "Employee 18",
+      "dob": "2005-10-30",
+      "hire_date": "2025-06-09",
+      "term_date": null,
+      "plan_comp": 42000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 1260,
+        "er_2": 483,
+        "total": 1743
+      }
+    },
+    {
+      "name": "Employee 19",
+      "dob": "2006-07-08",
+      "hire_date": "2025-10-06",
+      "term_date": null,
+      "plan_comp": 38000,
+      "is_owner": false,
+      "is_hce": false,
+      "is_spouse_attribution": false,
+      "allocations": {
+        "deferral": 0,
+        "er_1": 1140,
+        "er_2": 437,
+        "total": 1577
+      }
+    }
+  ],
+  "compliance_notes": [
+    "Owner age 62 at plan year end \u2014 eligible for SECURE 2.0 super catch-up ($11,250).",
+    "Owner deferral shown = $24,500 (402(g)) + $11,250 super catch-up.",
+    "Spouse of 100% owner \u2014 HCE by \u00a7318 family attribution."
+  ]
+}

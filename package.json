@@ -1,0 +1,24 @@
+{
+  "name": "proposalk-worker",
+  "version": "0.1.0",
+  "description": "Proposal(k) — partner-branded proposal generator Worker. Renders HTML + merges with partner boilerplate PDFs for (k) Suite plan design deliverables.",
+  "type": "module",
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:remote": "wrangler dev --remote",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "sync-template": "bash scripts/sync-template.sh",
+    "r2:seed": "bash scripts/r2-seed.sh",
+    "test:smoke": "bash scripts/smoke-test.sh"
+  },
+  "dependencies": {
+    "@cloudflare/puppeteer": "^0.0.14",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
