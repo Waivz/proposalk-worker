@@ -1,19 +1,27 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://proposalk.waivz.ai/schema.json",
-  "title": "Proposal(k) Render Payload",
-  "description": "Contract for POST /render. This is the payload Design(k) Pro (or any upstream (k) Suite module) sends to Proposal(k) to generate a partner-branded plan services proposal PDF.",
+  "$id": "https://proposalk.waivz.ai/schema/v2.json",
+  "title": "Proposal(k) Render Payload (V2 — Multi-Scenario)",
+  "description": "Contract for POST /render. Supports 1–3 plan design scenarios side-by-side. Backward-compatible: the Worker's normalizer auto-wraps a V1 single 'scenario' payload into V2 'scenarios[]' before validation.",
   "type": "object",
-  "required": ["sponsor", "scenario", "fees", "participants"],
+  "required": ["sponsor", "fees", "participants"],
+  "oneOf": [
+    { "required": ["scenarios"] },
+    { "required": ["scenario"] }
+  ],
   "properties": {
     "vendor": {
       "type": "string",
-      "description": "Partner adapter key. Upstream Census(k) sets this based on file signature detection. Defaults to 'cetera' if omitted.",
+      "description": "Partner adapter key. Defaults to 'cetera' if omitted.",
       "enum": ["cetera"]
+    },
+    "_version": {
+      "type": "integer",
+      "description": "Payload version. 2 = multi-scenario (preferred). Omitted or 1 = single-scenario (auto-wrapped)."
     },
     "proposal_meta": {
       "type": "object",
-      "description": "Metadata about the proposal itself — dates, plan year.",
+      "description": "Metadata about the proposal itself.",
       "properties": {
         "prepared_date": { "type": "string", "description": "Human-readable date (e.g., 'April 2026')" },
         "plan_year": { "type": "integer" },
@@ -32,38 +40,61 @@
         "participant_count_with_balances": { "type": "integer", "minimum": 0 }
       }
     },
-    "scenario": {
-      "type": "object",
-      "description": "The plan design outcome from Design(k) Pro.",
-      "required": ["plan_type", "owner_contribution_total", "nonowner_er_contribution_total", "tax_savings_total"],
-      "properties": {
-        "plan_type": {
-          "type": "string",
-          "description": "Cetera-style label: 'Custom(k) Plan', 'Easy(k) Plan', '401(k) PSP with Cash Balance'."
-        },
-        "intent": { "type": "string", "description": "e.g., 'Maximize Owner Benefits'" },
-        "design_summary": { "type": "string" },
-        "owner_contribution_total": { "type": "number" },
-        "nonowner_er_contribution_total": { "type": "number" },
-        "owner_share_pct": {
-          "type": "number",
-          "description": "ADVISORY ONLY. The Worker's template recomputes this from the totals using Cetera's convention (Owner Total / (Owner Total + Non-Owner Total), deferral included). If upstream sends a different value, it will be overridden at render time."
-        },
-        "tax_savings_total": { "type": "number" },
-        "column_headers": {
-          "type": "object",
-          "description": "Per-scenario column labels for the participant detail table.",
-          "properties": {
-            "deferral": { "type": "string", "default": "Deferral" },
-            "er_1": { "type": "string", "description": "e.g., '3% Safe Harbor' or 'Safe Harbor Match'" },
-            "er_2": { "type": "string", "description": "e.g., 'Profit Sharing' or 'CB' for cash balance" }
+
+    "scenarios": {
+      "type": "array",
+      "description": "V2: Array of 1–3 plan design scenarios. Each generates a column in the Opportunity Summary and allocation columns in the detail table.",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["plan_type", "owner_contribution_total", "nonowner_er_contribution_total", "tax_savings_total"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Column header label (e.g., 'Option 1', 'Recommended'). Defaults to 'Option N' if omitted."
+          },
+          "plan_type": {
+            "type": "string",
+            "description": "Cetera-style label: 'Custom(k) Plan', 'Easy(k) Plan', '401(k) PSP with Cash Balance'."
+          },
+          "intent": { "type": "string", "description": "e.g., 'Maximize Owner Benefits'" },
+          "design_summary": { "type": "string" },
+          "owner_contribution_total": { "type": "number" },
+          "nonowner_er_contribution_total": { "type": "number" },
+          "owner_share_pct": {
+            "type": "number",
+            "description": "ADVISORY ONLY. The template recomputes this from the totals using Cetera's convention."
+          },
+          "tax_savings_total": { "type": "number" },
+          "column_headers": {
+            "type": "object",
+            "description": "Per-scenario column labels for the participant detail table. Set er_2 to null to suppress that column (e.g., Easy(k) has no Profit Sharing).",
+            "properties": {
+              "deferral": { "type": "string", "default": "Deferral" },
+              "er_1": { "type": "string", "description": "e.g., '3% Safe Harbor' or 'Safe Harbor Match'" },
+              "er_2": { "type": ["string", "null"], "description": "e.g., 'Profit Sharing'. Null to hide column." }
+            }
           }
         }
       }
     },
+
+    "scenario": {
+      "type": "object",
+      "description": "V1 BACKWARD-COMPAT: Single scenario object. The Worker normalizes this into scenarios[0] before rendering.",
+      "properties": {
+        "plan_type": { "type": "string" },
+        "owner_contribution_total": { "type": "number" },
+        "nonowner_er_contribution_total": { "type": "number" },
+        "tax_savings_total": { "type": "number" },
+        "column_headers": { "type": "object" }
+      }
+    },
+
     "irs_limits": {
       "type": "object",
-      "description": "IRS limits for the plan year. Template uses these to build the 402(g) footnote dynamically; values should come from Design(k)'s IRS limits block.",
+      "description": "IRS limits for the plan year. Template uses these to build the 402(g) footnote dynamically.",
       "required": ["year"],
       "properties": {
         "year": { "type": "integer" },
@@ -76,19 +107,28 @@
         "key_employee_threshold": { "type": "integer" }
       }
     },
+
     "fees": {
       "type": "object",
-      "description": "Partner fee schedule. Comes from the partner adapter defaults, editable in the Proposal(k) review screen.",
+      "description": "V2: per_scenario[] for fees that vary by plan type + shared fields for common fees. V1 flat structure auto-wrapped by normalizer.",
       "properties": {
-        "one_time_design": { "type": "number" },
-        "annual_base": { "type": "number" },
-        "participant_fee": { "type": "number" },
-        "cross_testing": { "type": "number" },
-        "fiduciary_316": { "type": "number" },
-        "annual_total": { "type": "number" },
+        "per_scenario": {
+          "type": "array",
+          "description": "Fee values that differ per scenario. Array indexed same as scenarios[].",
+          "items": {
+            "type": "object",
+            "properties": {
+              "one_time_design": { "type": ["number", "null"] },
+              "participant_fee": { "type": ["number", "null"] },
+              "cross_testing": { "type": ["number", "null"], "description": "Null if not applicable (e.g., Easy(k))." },
+              "annual_total": { "type": ["number", "null"] }
+            }
+          }
+        },
+        "annual_base": { "type": "number", "description": "Shared across all scenarios." },
+        "fiduciary_316": { "type": "number", "description": "Shared across all scenarios." },
         "billing_frequency": {
           "type": "object",
-          "description": "How each line item is billed.",
           "properties": {
             "design": { "type": "string" },
             "base": { "type": "string" },
@@ -99,16 +139,18 @@
         }
       }
     },
+
     "tax_credits": {
       "type": "object",
       "properties": {
-        "year_one": { "type": "number", "description": "First-year SECURE credit estimate (setup + per-NHCE)" },
-        "five_year": { "type": "number", "description": "Sum of 5-year credits" }
+        "year_one": { "type": "number" },
+        "five_year": { "type": "number" }
       }
     },
+
     "participants": {
       "type": "array",
-      "description": "Participant roster with allocations. Must contain at least one row with is_owner=true.",
+      "description": "Participant roster. V2: allocations is an array indexed by scenario. V1: allocations is an object (auto-wrapped).",
       "minItems": 1,
       "items": {
         "type": "object",
@@ -116,36 +158,49 @@
         "properties": {
           "name": { "type": "string" },
           "dob": { "type": ["string", "null"], "description": "ISO YYYY-MM-DD" },
-          "hire_date": { "type": ["string", "null"], "description": "ISO YYYY-MM-DD" },
-          "term_date": { "type": ["string", "null"], "description": "ISO YYYY-MM-DD or null" },
-          "plan_comp": { "type": "number", "description": "Comp used for plan calc — already clipped to §401(a)(17) upstream" },
-          "is_owner": { "type": "boolean", "description": "True for direct >5% owners" },
+          "hire_date": { "type": ["string", "null"] },
+          "term_date": { "type": ["string", "null"] },
+          "plan_comp": { "type": "number", "description": "Comp used for plan calc — already clipped to §401(a)(17)." },
+          "is_owner": { "type": "boolean" },
           "is_hce": { "type": "boolean" },
-          "is_spouse_attribution": {
-            "type": "boolean",
-            "description": "§318(a)(1) family attribution — set true for spouse/child/grandchild/parent of a direct owner. Sourced from Census(k)'s _isAttributedOwner + _familyRel='SPOUSE'."
-          },
-          "footnote_marks": {
-            "type": "array",
-            "description": "Footnote reference marks to render next to the participant's name (e.g., ['*', '†'] for the owner's compliance notes).",
-            "items": { "type": "string" }
-          },
+          "is_spouse_attribution": { "type": "boolean", "description": "§318(a)(1) family attribution." },
+          "footnote_marks": { "type": "array", "items": { "type": "string" } },
           "allocations": {
-            "type": "object",
-            "required": ["deferral", "er_1", "er_2", "total"],
-            "properties": {
-              "deferral": { "type": "number", "description": "402(g) + any catch-up for this participant" },
-              "er_1": { "type": "number", "description": "First ER contribution column (SHNE 3%, SH Match, etc.)" },
-              "er_2": { "type": "number", "description": "Second ER contribution column (Profit Sharing, CB credit, etc.)" },
-              "total": { "type": "number" }
-            }
+            "description": "V2: array of allocation objects, one per scenario. V1: single allocation object (auto-wrapped).",
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["deferral", "er_1", "total"],
+                  "properties": {
+                    "deferral": { "type": "number" },
+                    "er_1": { "type": "number" },
+                    "er_2": { "type": ["number", "null"] },
+                    "total": { "type": "number" }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "description": "V1 backward-compat: single allocation object.",
+                "required": ["deferral", "er_1", "er_2", "total"],
+                "properties": {
+                  "deferral": { "type": "number" },
+                  "er_1": { "type": "number" },
+                  "er_2": { "type": "number" },
+                  "total": { "type": "number" }
+                }
+              }
+            ]
           }
         }
       }
     },
+
     "compliance_notes": {
       "type": "array",
-      "description": "Per-participant footnotes that render under the detail table (keyed to footnote_marks in order: first note → '*', second → '†', third → '‡').",
+      "description": "Footnotes rendered under the detail table. Keyed to footnote_marks: first → '*', second → '†', third → '‡'.",
       "items": { "type": "string" }
     }
   }
