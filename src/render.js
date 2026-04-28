@@ -51,7 +51,7 @@ export const ADAPTER_REGISTRY = {
       { ref: './cetera-logo.svg', r2: 'cetera/cetera-logo.svg', mime: 'image/svg+xml' }
     ],
     dynamic_pages: 4,
-    boilerplate_pages: 19,
+    boilerplate_pages: 18,
     boilerplate_skip: 1
   }
   // When a second partner arrives, add an entry here. No other code changes
@@ -113,7 +113,7 @@ export async function handleRender(request, env, ctx) {
     const boilerBytes = await boilerObj.arrayBuffer();
 
     // 9. Merge — dynamic in front, boilerplate after
-    const mergedBytes = await mergePdfs(dynamicBytes, boilerBytes);
+    const mergedBytes = await mergePdfs(dynamicBytes, boilerBytes, adapter);
 
     const elapsed = Date.now() - t0;
     const pageCount = await countPages(mergedBytes);
@@ -185,7 +185,7 @@ async function renderHtmlToPdf(html, browserBinding) {
 // partner content — 19 pages for Cetera) goes after. That order matches the
 // Cetera reference PDF and preserves the cover → summary → detail flow.
 // -----------------------------------------------------------------------------
-async function mergePdfs(dynamicBytes, boilerBytes) {
+async function mergePdfs(dynamicBytes, boilerBytes, adapter) {
   const merged = await PDFDocument.create();
 
   const dynamicDoc = await PDFDocument.load(dynamicBytes);
