@@ -248,6 +248,29 @@
   .glance-bar-label { font-size: 7px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.15; }
   .glance-divider { width: 1px; background: var(--rule); height: 80%; align-self: center; margin: 0 1px; }
 
+  /* ========== PLAN PROVISIONS (page 4) ========== */
+  .provisions-header { text-align: center; margin: 30px 0 14px; }
+  .provisions-header .prov-sponsor { font-size: 14px; font-weight: 700; color: var(--cetera-purple); margin-bottom: 2px; }
+  .provisions-header .prov-sub { font-size: 12px; font-weight: 700; color: var(--text); }
+  .provisions-header .prov-year { font-size: 11px; font-weight: 400; color: var(--text); }
+
+  .prov-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+  .prov-table td { padding: 4px 8px; vertical-align: top; border-bottom: 0.5px solid #e0e0e0; }
+  .prov-table td.prov-label { width: 28%; font-weight: 600; color: var(--text); }
+  .prov-table td.prov-value { color: var(--text); }
+  .prov-table .prov-section { border-top: 1.5px solid var(--text); border-bottom: 1.5px solid var(--text); }
+  .prov-table .prov-section td { padding: 0; }
+  .prov-inner { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+  .prov-inner td { padding: 3px 8px; vertical-align: top; border-bottom: 0.3px solid #e8e8e8; }
+  .prov-inner td.prov-inner-label { text-align: right; width: 50%; font-weight: 500; color: var(--text-muted); }
+  .prov-inner td.prov-inner-value { text-align: left; }
+
+  .vest-table { width: 80%; border-collapse: collapse; font-size: 10px; margin: 6px 0 4px; }
+  .vest-table th { font-weight: 600; font-size: 9.5px; text-align: center; border-bottom: 1px solid var(--text); padding: 2px 12px; }
+  .vest-table td { text-align: center; padding: 2px 12px; border-bottom: 0.3px solid #e0e0e0; font-size: 10px; }
+
+  .prov-note { font-size: 9px; color: var(--text-muted); line-height: 1.35; margin-top: 3px; }
+
   /* ========== FOOTER / DISCLOSURES ========== */
   .footnote { font-size: 9px; color: var(--text-muted); font-style: italic; margin-top: 4px; line-height: 1.4; }
   .footnote strong { font-style: normal; }
@@ -346,24 +369,23 @@
   <h1 class="sponsor-name" data-bind="sponsor.legal_name" data-placeholder="[Plan Sponsor Name]"></h1>
   <div class="section-label">Opportunity Summary:</div>
 
+  <div id="opp-summary-grid" style="margin-bottom: 10px;"></div>
+
   <div class="opp-summary-wrap">
     <div class="opp-summary-left">
-      <div id="opp-summary-grid"></div>
       <div id="fees-grid"></div>
     </div>
     <div class="opp-summary-right">
-      <div style="height: 20px;"></div>
       <div id="billing-grid"></div>
     </div>
   </div>
 
   <div class="spacer-flex"></div>
 
-  <div class="disclosures">
+  <div class="disclosures" style="font-size:8px;">
     <div class="disclosure">Annual base fee and per participant fees are billed quarterly in equal installments. If you join our firm mid-year, you will receive a one-time catch-up invoice.</div>
     <div class="disclosure highlight">Tax Credit (for Employers with fewer than 50 employees): 100% of setup tax credit up to $5,000 per year for the first 3 years. Plus additional tax credit for employer contributions (made to employees earning less than $100K) up to $1,000 per employee (phase-out applies, subject to COLA).</div>
-    <div class="disclosure">Tax savings are estimated based on top dollar tax rates. Consult with your tax advisor to determine the tax impact of the proposed plan within the context of your total financial picture.</div>
-    <div class="disclosure">Does not include recordkeeping fees. Recordkeeping fees will depend on the investment platform selected by the plan sponsor.</div>
+    <div class="disclosure">Tax savings are estimated based on top dollar tax rates. Consult with your tax advisor. Does not include recordkeeping fees.</div>
   </div>
 
   <div class="page-footer">
@@ -424,8 +446,40 @@
 </div>
 
 <!-- ============================================================= -->
-<!-- RENDER SCRIPT — V2 multi-scenario (backward-compat with V1)    -->
+<!-- PAGE 4: SUMMARY OF PLAN PROVISIONS (dynamic — built by JS)     -->
 <!-- ============================================================= -->
+<div class="page content-page">
+  <div class="masthead">
+    <div class="masthead-logo">
+      <div class="logo-lockup" aria-label="Cetera Retirement Plan Specialists">
+        <img class="mark" src="./cetera-logo.svg" alt="Cetera">
+        <div class="rule"></div>
+        <div class="stack"><span>Retirement</span><span>Plan</span><span>Specialists</span></div>
+      </div>
+    </div>
+    <div class="masthead-title">PENSION FEASIBILITY STUDY</div>
+  </div>
+  <div class="purple-rule"></div>
+
+  <div class="provisions-header">
+    <div class="prov-sponsor" id="prov-sponsor"></div>
+    <div class="prov-sub">Summary of Plan Provisions - 401(k) Plan</div>
+    <div class="prov-year" id="prov-year"></div>
+  </div>
+
+  <table class="prov-table" id="prov-table">
+    <tbody id="prov-tbody"></tbody>
+  </table>
+
+  <div class="spacer-flex"></div>
+
+  <div class="disclosures" style="font-size:8px; margin-top:12px;">
+    <div class="disclosure">The attached pension analysis was prepared for you based upon the submitted data. The proposal(s) presented herein are intended to serve as a basis for discussion.<br>Note that actual results may vary based on changes in plan design, employee census data, actuarial calculations, and governing regulations.</div>
+    <div class="disclosure" style="margin-top:4px;">© 2026 Cetera Retirement Plan Specialists</div>
+  </div>
+
+  <div class="page-url-bar">www.cetera.com/cetera-retirement-plan-specialists</div>
+</div>
 <script>
 (function(){
   'use strict';
@@ -859,6 +913,74 @@
     chart.innerHTML = cHtml;
   }
 
+  // ================================================================
+  // PAGE 4: SUMMARY OF PLAN PROVISIONS
+  // ================================================================
+
+  function renderProvisions() {
+    var sponsorEl = document.getElementById('prov-sponsor');
+    var yearEl = document.getElementById('prov-year');
+    var tbody = document.getElementById('prov-tbody');
+    if (!sponsorEl || !tbody) return;
+
+    sponsorEl.textContent = data.sponsor.legal_name || '[Plan Sponsor Name]';
+    var planYear = data.proposal_meta.plan_year || 2026;
+    var planYearEnd = data.proposal_meta.plan_year_end || ('December 31, ' + planYear);
+    yearEl.textContent = 'For Plan Year Ending ' + planYearEnd;
+
+    // Determine plan characteristics from first scenario
+    var s0 = scenarios[0] || {};
+    var hasCrossTest = (s0.column_headers && s0.column_headers.er_2 !== null && s0.column_headers.er_2 !== undefined);
+    var effectiveDate = 'January 1, ' + planYear;
+
+    var h = '';
+
+    // Row helper
+    function row(label, value) {
+      return '<tr><td class="prov-label">' + label + '</td><td class="prov-value">' + value + '</td></tr>';
+    }
+
+    h += row('Effective Date:', esc(effectiveDate));
+    h += row('Eligibility Requirements:',
+      'Employees are eligible on the next January 1st or July 1st following requirements: &bull; Minimum Age 21 &bull; 1 year of service with at least 1,000 hours in the year' +
+      '<div class="prov-note">Long Term Part Time Employees \u2014 As defined in SECURE ACT 2.0, Long Term Part Time employees may need to become deferral eligible when they have worked 2 consecutive years with at least 500 hours of service.</div>'
+    );
+    h += row('Normal Retirement Age:', 'Age 65 and 5 Years of Participation');
+
+    // Contributions section (nested table)
+    h += '<tr class="prov-section"><td colspan="2"><table class="prov-inner">';
+    h += '<tr><td class="prov-label" rowspan="6" style="vertical-align:top;width:28%;border-right:0.5px solid #e0e0e0;">Contributions:</td>';
+    h += '<td class="prov-inner-label">401(k) Deferral:</td><td class="prov-inner-value">Pretax &amp; Roth</td></tr>';
+    h += '<tr><td class="prov-inner-label">Qualified Automatic Contribution Arrangement - Auto Enrollment:</td><td class="prov-inner-value">Yes, at 3% when eligible, with auto-escalation at 1% annually until 10% is met. Participants may change elections and may opt out. 90 day permissible withdrawal applies.</td></tr>';
+    h += '<tr><td class="prov-inner-label">Safe Harbor Match:</td><td class="prov-inner-value">100% on 1st 3% of compensation plus 50% on next 2% of pay. Employee defers 5%, company matches 4%.</td></tr>';
+    h += '<tr><td class="prov-inner-label">Safe Harbor Non-Elective:</td><td class="prov-inner-value">100% on 1st 3% of compensation to all eligible, regardless of salary deferral.</td></tr>';
+    h += '<tr><td class="prov-inner-label">Employer Match:</td><td class="prov-inner-value">Discretionary</td></tr>';
+    h += '<tr><td class="prov-inner-label">Employer Profit Sharing:</td><td class="prov-inner-value">Discretionary</td></tr>';
+    h += '</table></td></tr>';
+
+    h += row('Loans, Interest Rate, &amp; Maximum Loan Amount:', 'Yes, Prime +2% from vested balances only, $50,000 maximum');
+    h += row('Hardship Withdrawals:', 'Yes');
+    h += row('Investment Direction:', 'Participant-directed in DC, Pooled in DB');
+
+    // Termination Benefit with vesting schedule
+    h += '<tr><td class="prov-label" style="vertical-align:top;">Termination Benefit:</td><td class="prov-value">';
+    h += '<div style="font-size:10px;line-height:1.4;margin-bottom:6px;">Credited years are plan years commencing with the year of entry and ending with the retirement year excluding years with less than 1000 hours. A participant\'s account balance maintained from employee-derived contributions is 100% vested and non-forfeitable at all times. Upon termination for any reason other than death, disability, or retirement, a participant shall be entitled to a portion of his/her account balance maintained from profit sharing contributions in accordance with the following vesting schedule:</div>';
+    h += '<div style="font-size:10px;margin-bottom:4px;">Employee Deferrals and Rollovers are always 100% vested immediately by law.<br>';
+    h += 'Employer Safe Harbor - Immediately vested by law, unless QACA provisions apply, then 2 year cliff permitted.<br>';
+    h += 'Employer Discretionary Match and Profit Sharing:</div>';
+    h += '<table class="vest-table"><tr><th>Credited Years</th><th>Vested %</th><th>Credited Years</th><th>Vested %</th></tr>';
+    h += '<tr><td>1</td><td>0%</td><td>4</td><td>60%</td></tr>';
+    h += '<tr><td>2</td><td>20%</td><td>5</td><td>80%</td></tr>';
+    h += '<tr><td>3</td><td>40%</td><td>6</td><td>100%</td></tr>';
+    h += '</table>';
+    h += '<div style="margin-top:4px;font-size:10px;">Cash Balance Plan &nbsp;&nbsp; 3 Year Cliff</div>';
+    h += '</td></tr>';
+
+    h += row('Death Benefit:', 'The value of the participant\'s account.');
+
+    tbody.innerHTML = h;
+  }
+
   // ---------- Run ----------
   renderOppSummary();
   renderFees();
@@ -867,6 +989,7 @@
   renderDetailBody();
   renderFootnotes();
   renderGlance();
+  renderProvisions();
 })();
 </script>
 
