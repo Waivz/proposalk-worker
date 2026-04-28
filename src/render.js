@@ -24,7 +24,7 @@ import { PDFDocument } from 'pdf-lib';
 import ceteraTemplate from './templates/cetera-template.html';
 
 import { corsHeaders, jsonError } from './lib/http.js';
-import { validatePayload } from './lib/validate.js';
+import { normalizePayload, validatePayload } from './lib/validate.js';
 import { injectPayload } from './lib/injectPayload.js';
 import { inlineAssets } from './lib/inlineAssets.js';
 
@@ -81,6 +81,7 @@ export async function handleRender(request, env, ctx) {
   }
 
   // --- 3. Validate payload -----------------------------------------------
+  normalizePayload(payload);
   const validation = validatePayload(payload);
   if (!validation.ok) {
     return jsonError(400, 'INVALID_PAYLOAD', validation.message, { errors: validation.errors });
