@@ -155,8 +155,8 @@
   .opp-summary-wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-bottom: 12px;
+    gap: 28px;
+    margin-bottom: 8px;
   }
   .opp-summary-left { min-width: 0; }
   .opp-summary-right { min-width: 0; }
@@ -233,20 +233,20 @@
     align-items: start;
   }
   .glance-title { font-size: 11.5px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
-  .glance-table { width: 100%; font-size: 10.5px; border-collapse: collapse; }
+  .glance-table { width: 100%; font-size: 9.5px; border-collapse: collapse; }
   .glance-table tr td { padding: 2px 0; }
   .glance-table tr td:nth-child(2) { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
   .glance-table tr td:nth-child(3) { text-align: right; color: var(--text-muted); font-size: 10px; padding-left: 12px; width: 55px; }
   .glance-chart {
-    display: flex; align-items: flex-end; gap: 10px;
-    height: 110px; padding: 4px 10px 0 20px;
+    display: flex; align-items: flex-end; gap: 6px;
+    height: 110px; padding: 4px 6px 0 16px;
     border-left: 0.5px solid var(--rule);
   }
-  .glance-bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 3px; flex: 1; max-width: 55px; height: 100%; }
-  .glance-bar-val { font-size: 8.5px; font-weight: 600; }
+  .glance-bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 2px; flex: 1; max-width: 45px; height: 100%; }
+  .glance-bar-val { font-size: 8px; font-weight: 600; }
   .glance-bar { width: 100%; border-radius: 1px 1px 0 0; min-height: 2px; }
-  .glance-bar-label { font-size: 7.5px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.15; }
-  .glance-divider { width: 1px; background: var(--rule); height: 80%; align-self: center; margin: 0 2px; }
+  .glance-bar-label { font-size: 7px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.15; }
+  .glance-divider { width: 1px; background: var(--rule); height: 80%; align-self: center; margin: 0 1px; }
 
   /* ========== FOOTER / DISCLOSURES ========== */
   .footnote { font-size: 9px; color: var(--text-muted); font-style: italic; margin-top: 4px; line-height: 1.4; }
@@ -352,7 +352,7 @@
       <div id="fees-grid"></div>
     </div>
     <div class="opp-summary-right">
-      <div style="height: 100px;"></div>
+      <div style="height: 20px;"></div>
       <div id="billing-grid"></div>
     </div>
   </div>
@@ -797,6 +797,19 @@
   // PLAN AT A GLANCE (multi-scenario)
   // ================================================================
 
+  // Short label for chart/glance — "Recommended", "Alt 1", "Alt 2" etc.
+  function shortLabel(s, i) {
+    var lbl = s.label || '';
+    // If label starts with "Recommended", keep just that
+    if (/^recommended/i.test(lbl)) return 'Recommended';
+    // If label starts with "Alternative N", shorten to "Alt N"
+    var altMatch = lbl.match(/^alternative\s*(\d+)/i);
+    if (altMatch) return 'Alt ' + altMatch[1];
+    // Fallback: first 16 chars or "Option N"
+    if (lbl.length > 16) return lbl.slice(0, 14) + '…';
+    return lbl || ('Option ' + (i + 1));
+  }
+
   function renderGlance() {
     var table = document.getElementById('glance-table');
     var chart = document.getElementById('glance-chart');
@@ -812,11 +825,11 @@
       var ownerPct = total > 0 ? Math.round((owner / total) * 100) : 0;
       var nonOwnerPct = total > 0 ? 100 - ownerPct : 0;
       var tax = Number(s.tax_savings_total) || 0;
-      var lbl = s.label || ('Option ' + (i + 1));
+      var sl = shortLabel(s, i);
 
-      tHtml += '<tr><td>' + esc(lbl) + ' Owner Contribution</td><td>' + fmt.currency(owner) + '</td><td>' + ownerPct + '%</td></tr>';
-      tHtml += '<tr><td>' + esc(lbl) + ' Non-Owner Contribution</td><td>' + fmt.currency(nonOwner) + '</td><td>' + nonOwnerPct + '%</td></tr>';
-      tHtml += '<tr><td>' + esc(lbl) + ' Tax Savings Estimate</td><td style="color:var(--money-green);">' + fmt.currency(tax) + '</td><td></td></tr>';
+      tHtml += '<tr><td>' + esc(sl) + ' Owner</td><td>' + fmt.currency(owner) + '</td><td>' + ownerPct + '%</td></tr>';
+      tHtml += '<tr><td>' + esc(sl) + ' Non-Owner</td><td>' + fmt.currency(nonOwner) + '</td><td>' + nonOwnerPct + '%</td></tr>';
+      tHtml += '<tr><td>' + esc(sl) + ' Tax Savings</td><td style="color:var(--money-green);">' + fmt.currency(tax) + '</td><td></td></tr>';
 
       allValues.push(owner, nonOwner, tax);
     });
@@ -838,10 +851,10 @@
       var owner = Number(s.owner_contribution_total) || 0;
       var nonOwner = Number(s.nonowner_er_contribution_total) || 0;
       var tax = Number(s.tax_savings_total) || 0;
-      var lbl = s.label || ('Opt ' + (i + 1));
-      cHtml += bar(owner, '#2a4d7a', lbl + '<br>Owner');
-      cHtml += bar(nonOwner, '#c26a63', lbl + '<br>Non-Owner');
-      cHtml += bar(tax, '#5f7a3a', lbl + '<br>Tax Savings');
+      var sl = shortLabel(s, i);
+      cHtml += bar(owner, '#2a4d7a', sl + '<br>Owner');
+      cHtml += bar(nonOwner, '#c26a63', sl + '<br>Non-Owner');
+      cHtml += bar(tax, '#5f7a3a', sl + '<br>Tax Savings');
     });
     chart.innerHTML = cHtml;
   }
