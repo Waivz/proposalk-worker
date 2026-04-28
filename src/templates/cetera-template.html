@@ -73,7 +73,6 @@
     padding: 0.35in 0.6in 0 0.55in;
     display: flex; flex-direction: column;
   }
-  /* Logo lockup: SVG mark + vertical rule + "RETIREMENT PLAN SPECIALISTS" text */
   .logo-lockup { display: flex; align-items: center; gap: 10px; }
   .logo-lockup .mark { width: auto; display: block; }
   .logo-lockup .rule {
@@ -88,16 +87,9 @@
     letter-spacing: 1.2px; line-height: 1.15;
     text-transform: uppercase;
   }
-
-  /* Cover-page sizing (larger) */
   .cover-right .logo-lockup { margin-bottom: 18px; }
   .cover-right .logo-lockup .mark { height: 42px; }
   .cover-right .logo-lockup .stack { font-size: 11px; letter-spacing: 1.5px; }
-  /* Legacy class retained for backwards-compatibility; no longer emitted */
-  .cover-right .cetera-logo {
-    height: 42px; width: auto;
-    margin-bottom: 18px;
-  }
   .cover-right .proposal-title {
     font-family: var(--display);
     font-size: 42px; font-weight: 700;
@@ -133,11 +125,9 @@
     background: var(--cetera-blue-grey);
   }
 
-  /* ========== MASTHEAD (pages 2 & 3) ========== */
+  /* ========== MASTHEAD (pages 2+) ========== */
   .masthead { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
   .masthead-logo { display: flex; align-items: center; }
-  .masthead-logo img { height: 38px; width: auto; }
-  /* Masthead sizing for logo lockup */
   .masthead-logo .logo-lockup .mark { height: 32px; }
   .masthead-logo .logo-lockup .stack { font-size: 8px; letter-spacing: 1px; }
   .masthead-title {
@@ -159,10 +149,9 @@
     color: var(--cetera-purple);
     margin-bottom: 12px;
   }
-  .sponsor-name .placeholder { color: #999; font-style: italic; font-weight: 500; }
   .section-label { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
 
-  /* ========== OPPORTUNITY SUMMARY (single-scenario layout, matches Cetera p.4) ========== */
+  /* ========== OPPORTUNITY SUMMARY (multi-scenario) ========== */
   .opp-summary-wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -172,37 +161,35 @@
   .opp-summary-left { min-width: 0; }
   .opp-summary-right { min-width: 0; }
 
-  .opp-grid { display: grid; grid-template-columns: 1.55fr 0.95fr; row-gap: 1px; column-gap: 14px; align-items: center; }
-  .opp-label-header { grid-column: 2; font-size: 11px; font-weight: 700; text-align: center; padding-bottom: 3px; border-bottom: 1px solid var(--text); margin-bottom: 4px; }
-  .opp-row-label { padding: 6px 0; font-size: 11.5px; color: var(--text); }
-  .opp-row-value { padding: 5px 10px; font-size: 11.5px; text-align: center; border: 1px solid var(--text); background: white; }
-  .opp-row-value.plan-type { font-weight: 700; }
-  .opp-row-value.tax { font-weight: 700; color: var(--money-green); }
-  .opp-row-value .placeholder { color: #999; font-style: italic; }
-
-  /* Fees section */
-  .fees-header {
-    font-size: 12px; font-weight: 700; color: var(--text);
-    border-bottom: 1px solid var(--text);
-    padding-bottom: 3px; margin: 14px 0 8px 0;
+  .opp-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .opp-table th { font-size: 11px; font-weight: 700; text-align: center; padding: 3px 8px; border-bottom: 1px solid var(--text); }
+  .opp-table td { padding: 5px 8px; }
+  .opp-table td.label-cell { text-align: left; }
+  .opp-table td.value-cell {
+    text-align: center; border: 1px solid var(--text); background: white;
   }
-  .fees-grid { display: grid; grid-template-columns: 1.55fr 0.95fr; row-gap: 1px; column-gap: 14px; align-items: center; }
-  .fees-row-label { padding: 6px 0; font-size: 11.5px; }
-  .fees-row-label .annotate { color: var(--estimate-red); font-size: 10px; }
-  .fees-row-value { padding: 5px 10px; font-size: 11.5px; text-align: center; border: 1px solid var(--text); background: white; }
-  .fees-row-value.total { font-weight: 700; }
+  .opp-table td.value-cell.plan-type { font-weight: 700; }
+  .opp-table td.value-cell.tax { font-weight: 700; color: var(--money-green); }
 
-  /* Billing Frequency column */
-  .billing-header {
-    font-size: 12px; font-weight: 700; color: var(--text);
+  .fees-table { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-top: 10px; }
+  .fees-table th { font-size: 11px; font-weight: 700; text-align: center; padding: 3px 8px; border-bottom: 1px solid var(--text); }
+  .fees-table td { padding: 5px 8px; }
+  .fees-table td.label-cell { text-align: left; }
+  .fees-table td.label-cell .annotate { color: var(--estimate-red); font-size: 10px; }
+  .fees-table td.value-cell { text-align: center; border: 1px solid var(--text); background: white; }
+  .fees-table td.value-cell.total { font-weight: 700; }
+  .fees-table .section-header td {
+    font-size: 12px; font-weight: 700; padding-top: 10px; padding-bottom: 3px;
     border-bottom: 1px solid var(--text);
-    padding-bottom: 3px; margin: 14px 0 8px 0;
   }
-  .billing-grid { display: grid; grid-template-columns: 1fr 1fr; row-gap: 1px; column-gap: 12px; align-items: center; }
-  .billing-freq { padding: 6px 0; font-size: 11.5px; color: var(--text-muted); }
-  .billing-amount { padding: 6px 10px; font-size: 11.5px; text-align: center; }
-  .tax-credit-lead { color: var(--money-green); font-weight: 700; font-size: 11.5px; padding: 4px 0; display: flex; justify-content: space-between; }
-  .tax-credit-lead .amt { text-align: right; }
+
+  .billing-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .billing-table th { font-size: 11px; font-weight: 700; text-align: center; padding: 3px 8px; border-bottom: 1px solid var(--text); }
+  .billing-table td { padding: 5px 8px; }
+  .billing-table td.freq { color: var(--text-muted); }
+  .billing-table td.amt { text-align: center; }
+  .tax-credit-row { color: var(--money-green); font-weight: 700; font-size: 11.5px; }
+  .tax-credit-row td { padding: 6px 8px; }
 
   /* ========== EMPLOYEE DETAIL TABLE ========== */
   .detail-table { width: 100%; border-collapse: collapse; font-size: 9.5px; margin-bottom: 6px; }
@@ -227,7 +214,7 @@
   }
   .detail-table tbody td:first-child { text-align: left; padding-left: 10px; }
   .detail-table tbody td.center { text-align: center; }
-  .detail-table tbody td.right { text-align: right; padding-right: 10px; font-variant-numeric: tabular-nums; }
+  .detail-table tbody td.right { text-align: right; padding-right: 8px; font-variant-numeric: tabular-nums; }
   .detail-table tbody .owner-row td { font-weight: 700; }
   .detail-table tbody .subtotal-row { background: var(--table-subtotal-bg); }
   .detail-table tbody .subtotal-row td {
@@ -237,6 +224,7 @@
     border-top: 1px solid var(--cetera-purple);
   }
   .col-plan-comp { border-left: 1px solid var(--text); background: #fafafa; font-weight: 600; }
+  .col-scenario-start { border-left: 1.5px solid var(--cetera-purple); }
 
   /* ========== PLAN AT A GLANCE ========== */
   .glance-section {
@@ -245,27 +233,24 @@
     align-items: start;
   }
   .glance-title { font-size: 11.5px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
-  .glance-table { width: 100%; font-size: 10.5px; }
+  .glance-table { width: 100%; font-size: 10.5px; border-collapse: collapse; }
   .glance-table tr td { padding: 2px 0; }
   .glance-table tr td:nth-child(2) { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
   .glance-table tr td:nth-child(3) { text-align: right; color: var(--text-muted); font-size: 10px; padding-left: 12px; width: 55px; }
   .glance-chart {
-    display: flex; align-items: flex-end; gap: 14px;
+    display: flex; align-items: flex-end; gap: 10px;
     height: 110px; padding: 4px 10px 0 20px;
     border-left: 0.5px solid var(--rule);
   }
-  .glance-bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 3px; flex: 1; max-width: 70px; height: 100%; }
-  .glance-bar-val { font-size: 9.5px; font-weight: 600; }
+  .glance-bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 3px; flex: 1; max-width: 55px; height: 100%; }
+  .glance-bar-val { font-size: 8.5px; font-weight: 600; }
   .glance-bar { width: 100%; border-radius: 1px 1px 0 0; min-height: 2px; }
-  .glance-bar.owner { background: #2a4d7a; }
-  .glance-bar.non-owner { background: #c26a63; }
-  .glance-bar.tax { background: #5f7a3a; }
-  .glance-bar-label { font-size: 9px; font-weight: 600; color: var(--text); text-align: center; }
+  .glance-bar-label { font-size: 7.5px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.15; }
+  .glance-divider { width: 1px; background: var(--rule); height: 80%; align-self: center; margin: 0 2px; }
 
   /* ========== FOOTER / DISCLOSURES ========== */
   .footnote { font-size: 9px; color: var(--text-muted); font-style: italic; margin-top: 4px; line-height: 1.4; }
   .footnote strong { font-style: normal; }
-  .footnote .ref { font-family: var(--body); }
   .disclosures { padding-top: 6px; }
   .disclosure { font-size: 9px; color: var(--text-muted); line-height: 1.4; margin-bottom: 2px; }
   .disclosure.highlight { color: var(--money-green); font-weight: 500; }
@@ -291,93 +276,20 @@
 <body>
 
 <!-- ======================================================= -->
-<!-- JSON DATA CONTRACT (swappable per prospect)              -->
+<!-- JSON DATA CONTRACT — replaced by Worker injectPayload() -->
 <!-- ======================================================= -->
 <script id="proposalk-data" type="application/json">
 {
-  "proposal_meta": {
-    "prepared_date": "April 2026",
-    "plan_year": 2026,
-    "plan_year_end": "December 31, 2026"
-  },
-  "sponsor": {
-    "legal_name": null,
-    "plan_name": null,
-    "state": null,
-    "entity_type": "LLC, Taxed as an S-Corporation",
-    "nature_of_business": "Evernt Rental Company",
-    "participant_count_with_balances": 20
-  },
-  "scenario": {
-    "plan_type": "Custom(k) Plan",
-    "intent": "Maximize Owner Benefits",
-    "design_summary": "Safe Harbor Non-Elective (3%) + New Comparability Profit Sharing",
-    "owner_contribution_total": 83250,
-    "nonowner_er_contribution_total": 58212,
-    "owner_share_pct": 58.9,
-    "tax_savings_total": 53351,
-    "column_headers": {
-      "deferral": "Deferral",
-      "er_1": "3% Safe Harbor",
-      "er_2": "Profit Sharing"
-    }
-  },
-  "irs_limits": {
-    "year": 2026,
-    "deferral_402g": 24500,
-    "catch_up_50_59": 8000,
-    "catch_up_60_63": 11250,
-    "section_415": 72000,
-    "comp_cap_401a17": 360000,
-    "hce_threshold": 160000,
-    "key_employee_threshold": 235000
-  },
-  "fees": {
-    "one_time_design": 1500,
-    "annual_base": 1400,
-    "participant_fee": 550,
-    "cross_testing": 750,
-    "fiduciary_316": 1000,
-    "annual_total": 2700,
-    "billing_frequency": {
-      "design": "One time",
-      "base": "Quarterly",
-      "participant": "Annually",
-      "cross_testing": "Annually",
-      "fiduciary_316": "Quarterly"
-    }
-  },
-  "tax_credits": {
-    "year_one": 9250,
-    "five_year": 31250
-  },
-  "participants": [
-    { "name": "Michael Tremonti", "dob": "1964-07-15", "hire_date": "1995-06-01", "term_date": null, "plan_comp": 360000, "is_owner": true, "is_hce": true, "is_spouse_attribution": false, "footnote_marks": ["*", "†"], "allocations": { "deferral": 35750, "er_1": 10800, "er_2": 36700, "total": 83250 } },
-    { "name": "Patricia Tremonti", "dob": "1967-09-22", "hire_date": "1996-06-15", "term_date": null, "plan_comp": 85000, "is_owner": false, "is_hce": true, "is_spouse_attribution": true, "footnote_marks": ["‡"], "allocations": { "deferral": 0, "er_1": 2550, "er_2": 977, "total": 3527 } },
-    { "name": "Employee 2", "dob": "1977-07-10", "hire_date": "2012-04-02", "term_date": null, "plan_comp": 130000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 3900, "er_2": 1494, "total": 5394 } },
-    { "name": "Employee 3", "dob": "1971-11-05", "hire_date": "2008-09-08", "term_date": null, "plan_comp": 118000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 3540, "er_2": 1356, "total": 4896 } },
-    { "name": "Employee 4", "dob": "1973-07-28", "hire_date": "2010-05-17", "term_date": null, "plan_comp": 115000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 3450, "er_2": 1321, "total": 4771 } },
-    { "name": "Employee 5", "dob": "1981-06-12", "hire_date": "2015-08-10", "term_date": null, "plan_comp": 95000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 2850, "er_2": 1092, "total": 3942 } },
-    { "name": "Employee 6", "dob": "1987-08-20", "hire_date": "2019-03-11", "term_date": null, "plan_comp": 88000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 2640, "er_2": 1011, "total": 3651 } },
-    { "name": "Employee 7", "dob": "1979-05-03", "hire_date": "2017-07-05", "term_date": null, "plan_comp": 78000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 2340, "er_2": 896, "total": 3236 } },
-    { "name": "Employee 8", "dob": "1984-10-17", "hire_date": "2019-11-04", "term_date": null, "plan_comp": 72000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 2160, "er_2": 827, "total": 2987 } },
-    { "name": "Employee 9", "dob": "1989-06-08", "hire_date": "2020-02-24", "term_date": null, "plan_comp": 62000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 1860, "er_2": 712, "total": 2572 } },
-    { "name": "Employee 10", "dob": "1996-12-05", "hire_date": "2023-05-15", "term_date": null, "plan_comp": 52000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 1560, "er_2": 598, "total": 2158 } },
-    { "name": "Employee 11", "dob": "1974-01-14", "hire_date": "2014-06-20", "term_date": null, "plan_comp": 70000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 2100, "er_2": 804, "total": 2904 } },
-    { "name": "Employee 12", "dob": "1991-07-28", "hire_date": "2021-04-19", "term_date": null, "plan_comp": 66000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 1980, "er_2": 758, "total": 2738 } },
-    { "name": "Employee 13", "dob": "1998-03-19", "hire_date": "2022-09-12", "term_date": null, "plan_comp": 60000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 1800, "er_2": 689, "total": 2489 } },
-    { "name": "Employee 14", "dob": "1988-09-11", "hire_date": "2020-06-08", "term_date": null, "plan_comp": 72000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 2160, "er_2": 827, "total": 2987 } },
-    { "name": "Employee 15", "dob": "1980-05-25", "hire_date": "2018-10-22", "term_date": null, "plan_comp": 68000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 2040, "er_2": 781, "total": 2821 } },
-    { "name": "Employee 16", "dob": "2000-02-15", "hire_date": "2024-03-04", "term_date": null, "plan_comp": 48000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 1440, "er_2": 551, "total": 1991 } },
-    { "name": "Employee 17", "dob": "2003-06-04", "hire_date": "2024-07-22", "term_date": null, "plan_comp": 44000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 1320, "er_2": 506, "total": 1826 } },
-    { "name": "Employee 18", "dob": "2005-10-30", "hire_date": "2025-06-09", "term_date": null, "plan_comp": 42000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 1260, "er_2": 483, "total": 1743 } },
-    { "name": "Employee 19", "dob": "2006-07-08", "hire_date": "2025-10-06", "term_date": null, "plan_comp": 38000, "is_owner": false, "is_hce": false, "is_spouse_attribution": false, "allocations": { "deferral": 0, "er_1": 1140, "er_2": 437, "total": 1577 } }
-  ],
-  "compliance_notes": [
-    "Owner age 62 at plan year end — eligible for SECURE 2.0 super catch-up ($11,250).",
-    "Owner deferral shown = $24,500 (402(g)) + $11,250 super catch-up.",
-    "Spouse of 100% owner — HCE by §318 family attribution."
-  ]
+  "_placeholder": true,
+  "vendor": "cetera",
+  "proposal_meta": { "prepared_date": "", "plan_year": 2026 },
+  "sponsor": { "legal_name": null, "plan_name": null, "state": null, "participant_count_with_balances": 0 },
+  "scenarios": [],
+  "irs_limits": { "year": 2026 },
+  "fees": { "per_scenario": [], "annual_base": 0, "fiduciary_316": 0, "billing_frequency": {} },
+  "tax_credits": { "year_one": 0, "five_year": 0 },
+  "participants": [],
+  "compliance_notes": []
 }
 </script>
 
@@ -411,7 +323,7 @@
 </div>
 
 <!-- ============================================================= -->
-<!-- PAGE 2: OPPORTUNITY SUMMARY  (single-scenario)                -->
+<!-- PAGE 2: OPPORTUNITY SUMMARY (multi-scenario — built by JS)     -->
 <!-- ============================================================= -->
 <div class="page content-page">
   <div class="masthead">
@@ -435,93 +347,13 @@
   <div class="section-label">Opportunity Summary:</div>
 
   <div class="opp-summary-wrap">
-    <!-- LEFT: contribution/plan/tax box -->
     <div class="opp-summary-left">
-      <div class="opp-grid">
-        <div class="opp-label-header">Option 1</div>
-
-        <div class="opp-row-label">Plan Type:</div>
-        <div class="opp-row-value plan-type" data-bind="scenario.plan_type"></div>
-
-        <div class="opp-row-label">Business Located In:</div>
-        <div class="opp-row-value" data-bind="sponsor.state" data-placeholder="[State]"></div>
-
-        <div class="opp-row-label">Number of Participants with account balances</div>
-        <div class="opp-row-value" data-bind="sponsor.participant_count_with_balances"></div>
-
-        <div class="opp-row-label">Contribution to Owner Employees</div>
-        <div class="opp-row-value" data-bind="scenario.owner_contribution_total" data-format="currency"></div>
-
-        <div class="opp-row-label">Employer Contribution to Non-owner Employees</div>
-        <div class="opp-row-value" data-bind="scenario.nonowner_er_contribution_total" data-format="currency"></div>
-
-        <div class="opp-row-label">Efficiency: % of Total Allocated to Owner</div>
-        <div class="opp-row-value" data-bind="scenario.owner_share_pct" data-format="percent"></div>
-
-        <div class="opp-row-label">Estimated Gross Tax Savings to Company</div>
-        <div class="opp-row-value tax" data-bind="scenario.tax_savings_total" data-format="currency"></div>
-      </div>
-
-      <div class="fees-header">*Fees Payable to Retirement Plan Specialists:</div>
-      <div class="fees-grid">
-        <div class="opp-label-header" style="grid-column: 2; margin-top: -8px;">Option 1</div>
-
-        <div class="fees-row-label">One-time Plan Design &amp; Implementation Fee</div>
-        <div class="fees-row-value" data-bind="fees.one_time_design" data-format="currency"></div>
-
-        <div class="fees-row-label">Annual Base Fee</div>
-        <div class="fees-row-value" data-bind="fees.annual_base" data-format="currency"></div>
-
-        <div class="fees-row-label">Participant Fees <em>(with</em> account balances<em>)</em></div>
-        <div class="fees-row-value" data-bind="fees.participant_fee" data-format="currency"></div>
-
-        <div class="fees-row-label">Profit Sharing — Non-Discrimination Cross Testing <span class="annotate">(Only when PS is applicable)</span></div>
-        <div class="fees-row-value" data-bind="fees.cross_testing" data-format="currency"></div>
-
-        <div class="fees-row-label">3(16) Fiduciary Services <span class="annotate">(optional, not included in pricing)</span></div>
-        <div class="fees-row-value" data-bind="fees.fiduciary_316" data-format="currency"></div>
-
-        <div class="fees-row-label" style="font-weight: 700;">Estimated Annual Total <span style="color: var(--text-muted); font-weight: 400; font-size: 10px;">(actual fee may vary)</span></div>
-        <div class="fees-row-value total" data-bind="fees.annual_total" data-format="currency"></div>
-      </div>
+      <div id="opp-summary-grid"></div>
+      <div id="fees-grid"></div>
     </div>
-
-    <!-- RIGHT: billing frequency and tax credits -->
     <div class="opp-summary-right">
-      <div style="height: 100px;"></div><!-- match vertical offset of "Option 1" col on left -->
-      <div class="billing-header">Billing Frequency</div>
-      <div class="billing-grid">
-        <div class="opp-label-header" style="grid-column: 2; margin-top: -8px;">Option 1</div>
-
-        <div class="billing-freq" data-bind="fees.billing_frequency.design"></div>
-        <div class="billing-amount" data-bind="fees.one_time_design" data-format="currency"></div>
-
-        <div class="tax-credit-lead" style="grid-column: 1 / 3;">
-          <span>Potential Year One Tax Credit:</span>
-          <span class="amt" data-bind="tax_credits.year_one" data-format="currency"></span>
-        </div>
-
-        <div class="billing-freq" data-bind="fees.billing_frequency.base"></div>
-        <div class="billing-amount">
-          <span data-bind="fees.annual_base" data-format="currency-quarterly"></span>
-        </div>
-
-        <div class="billing-freq" data-bind="fees.billing_frequency.participant"></div>
-        <div class="billing-amount" data-bind="fees.participant_fee" data-format="currency"></div>
-
-        <div class="billing-freq" data-bind="fees.billing_frequency.cross_testing"></div>
-        <div class="billing-amount" data-bind="fees.cross_testing" data-format="currency"></div>
-
-        <div class="billing-freq" data-bind="fees.billing_frequency.fiduciary_316"></div>
-        <div class="billing-amount">
-          <span data-bind="fees.fiduciary_316" data-format="currency-quarterly"></span>
-        </div>
-
-        <div class="tax-credit-lead" style="grid-column: 1 / 3; margin-top: 12px;">
-          <span>Potential Tax Credit In 5 Years:</span>
-          <span class="amt" data-bind="tax_credits.five_year" data-format="currency"></span>
-        </div>
-      </div>
+      <div style="height: 100px;"></div>
+      <div id="billing-grid"></div>
     </div>
   </div>
 
@@ -544,7 +376,7 @@
 </div>
 
 <!-- ============================================================= -->
-<!-- PAGE 3: EMPLOYEE DETAIL + PLAN AT A GLANCE                    -->
+<!-- PAGE 3: EMPLOYEE DETAIL + PLAN AT A GLANCE (built by JS)       -->
 <!-- ============================================================= -->
 <div class="page content-page">
   <div class="masthead">
@@ -567,48 +399,20 @@
   <h1 class="sponsor-name" data-bind="sponsor.legal_name" data-placeholder="[Plan Sponsor Name]"></h1>
 
   <table class="detail-table" id="detail-table">
-    <thead>
-      <tr>
-        <th rowspan="3" style="width: 16%; text-align: left; padding-left: 10px;">Name</th>
-        <th colspan="3" class="group-header">Date of</th>
-        <th rowspan="3" style="width: 9%; background: #fafafa;">Plan Comp</th>
-        <th colspan="4" class="group-header"><span data-bind="scenario.plan_type"></span></th>
-      </tr>
-      <tr>
-        <th colspan="3" class="option-label">&nbsp;</th>
-        <th colspan="4" class="option-label">Option 1</th>
-      </tr>
-      <tr>
-        <th>Birth</th>
-        <th>Hire</th>
-        <th>Term</th>
-        <th data-bind="scenario.column_headers.deferral"></th>
-        <th data-bind="scenario.column_headers.er_1"></th>
-        <th data-bind="scenario.column_headers.er_2"></th>
-        <th>Total $</th>
-      </tr>
-    </thead>
-    <tbody id="detail-tbody">
-      <!-- rendered by JS -->
-    </tbody>
+    <thead id="detail-thead"></thead>
+    <tbody id="detail-tbody"></tbody>
   </table>
 
-  <div class="footnote" id="footnotes">
-    <!-- rendered by JS -->
-  </div>
+  <div class="footnote" id="footnotes"></div>
 
   <div class="spacer-flex"></div>
 
   <div class="glance-section">
     <div>
       <div class="glance-title">Plan at a Glance</div>
-      <table class="glance-table" id="glance-table">
-        <!-- rendered by JS -->
-      </table>
+      <table class="glance-table" id="glance-table"></table>
     </div>
-    <div class="glance-chart" id="glance-chart">
-      <!-- rendered by JS -->
-    </div>
+    <div class="glance-chart" id="glance-chart"></div>
   </div>
 
   <div class="disclosures" style="margin-top: 10px;">
@@ -620,7 +424,7 @@
 </div>
 
 <!-- ============================================================= -->
-<!-- RENDER SCRIPT                                                  -->
+<!-- RENDER SCRIPT — V2 multi-scenario (backward-compat with V1)    -->
 <!-- ============================================================= -->
 <script>
 (function(){
@@ -630,238 +434,424 @@
   const raw = document.getElementById('proposalk-data').textContent;
   const data = JSON.parse(raw);
 
-  // ---------- Compute derived values (authoritative — overrides upstream drift) ----------
-  // Cetera convention, per their Pension Feasibility Study:
-  //   Efficiency % = Owner Total / (Owner Total + Non-Owner Total)
-  // Owner Total INCLUDES the owner's 402(g) deferral + super-catch-up. This matches
-  // the "Plan at a Glance" panel on page 3. Computing it here ensures page 2's
-  // Opportunity Summary and page 3's Glance agree, regardless of what the upstream
-  // adapter wrote to scenario.owner_share_pct.
-  function computeDerived() {
-    const s = data.scenario;
-    if (!s) return;
-    const owner = Number(s.owner_contribution_total) || 0;
-    const nonOwner = Number(s.nonowner_er_contribution_total) || 0;
-    const total = owner + nonOwner;
-    if (total > 0) {
-      s.owner_share_pct = (owner / total) * 100;
+  // ---------- V1 → V2 normalizer ----------
+  if (data.scenario && !data.scenarios) {
+    data.scenarios = [Object.assign({ label: 'Option 1' }, data.scenario)];
+    delete data.scenario;
+    (data.participants || []).forEach(function(p) {
+      if (p.allocations && !Array.isArray(p.allocations)) {
+        p.allocations = [p.allocations];
+      }
+    });
+    if (data.fees && !data.fees.per_scenario) {
+      var f = data.fees;
+      data.fees = {
+        per_scenario: [{
+          one_time_design: f.one_time_design,
+          participant_fee: f.participant_fee,
+          cross_testing: f.cross_testing,
+          annual_total: f.annual_total
+        }],
+        annual_base: f.annual_base,
+        fiduciary_316: f.fiduciary_316,
+        billing_frequency: f.billing_frequency
+      };
     }
   }
-  computeDerived();
+
+  var scenarios = data.scenarios || [];
+  var N = scenarios.length;
+
+  // ---------- Compute derived values ----------
+  scenarios.forEach(function(s) {
+    var owner = Number(s.owner_contribution_total) || 0;
+    var nonOwner = Number(s.nonowner_er_contribution_total) || 0;
+    var total = owner + nonOwner;
+    s.owner_share_pct = total > 0 ? (owner / total) * 100 : 0;
+  });
+
+  // Active columns per scenario (skip er_2 if null)
+  var scenarioCols = scenarios.map(function(s) {
+    var cols = ['deferral', 'er_1'];
+    if (s.column_headers && s.column_headers.er_2 !== null && s.column_headers.er_2 !== undefined) {
+      cols.push('er_2');
+    }
+    cols.push('total');
+    return cols;
+  });
 
   // ---------- Formatters ----------
-  const fmt = {
-    currency: (v) => {
+  var fmt = {
+    currency: function(v) {
       if (v === null || v === undefined || v === '') return '';
-      const n = Number(v);
+      var n = Number(v);
       if (isNaN(n)) return String(v);
       return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
     },
-    'currency-quarterly': (v) => {
-      // For quarterly billing display: annual fee / 4
+    currencyQ: function(v) {
       if (v === null || v === undefined || v === '') return '';
-      const n = Number(v);
+      var n = Number(v);
       if (isNaN(n)) return String(v);
       return '$' + Math.round(n / 4).toLocaleString('en-US');
     },
-    percent: (v) => {
+    percent: function(v) {
       if (v === null || v === undefined || v === '') return '';
-      const n = Number(v);
+      var n = Number(v);
       if (isNaN(n)) return String(v);
       return Math.round(n) + '%';
     },
-    date: (v) => {
+    date: function(v) {
       if (!v) return '';
-      // ISO YYYY-MM-DD → M/D/YYYY
-      const m = String(v).match(/^(\d{4})-(\d{2})-(\d{2})/);
+      var m = String(v).match(/^(\d{4})-(\d{2})-(\d{2})/);
       if (!m) return String(v);
-      return `${parseInt(m[2],10)}/${parseInt(m[3],10)}/${m[1]}`;
+      return parseInt(m[2],10) + '/' + parseInt(m[3],10) + '/' + m[1];
     }
   };
 
-  // ---------- Walk dotted path ----------
+  function esc(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function valOrNA(v) {
+    if (v === null || v === undefined) return 'N/A';
+    return fmt.currency(v);
+  }
+
+  // ---------- Bind data-bind elements (cover page + headers) ----------
   function getPath(obj, path) {
-    return path.split('.').reduce((acc, key) => {
-      if (acc === null || acc === undefined) return undefined;
-      return acc[key];
-    }, obj);
+    return path.split('.').reduce(function(a, k) { return a == null ? undefined : a[k]; }, obj);
+  }
+  document.querySelectorAll('[data-bind]').forEach(function(el) {
+    var value = getPath(data, el.getAttribute('data-bind'));
+    var placeholder = el.getAttribute('data-placeholder');
+    if (value === null || value === undefined || value === '') {
+      el.innerHTML = placeholder ? '<span style="color:#999;font-style:italic;">' + placeholder + '</span>' : '';
+    } else {
+      el.textContent = String(value);
+    }
+  });
+
+  // ================================================================
+  // PAGE 2: OPPORTUNITY SUMMARY
+  // ================================================================
+
+  function renderOppSummary() {
+    var el = document.getElementById('opp-summary-grid');
+    if (!el || N === 0) return;
+
+    var h = '<table class="opp-table"><thead><tr><th></th>';
+    scenarios.forEach(function(s) { h += '<th>' + esc(s.label || 'Option') + '</th>'; });
+    h += '</tr></thead><tbody>';
+
+    var rows = [
+      { label: 'Plan Type:', key: 'plan_type', cls: 'plan-type' },
+      { label: 'Business Located In:', isStatic: true, val: data.sponsor.state || '' },
+      { label: 'Number of Participants with account balances', isStatic: true, val: data.sponsor.participant_count_with_balances || '' },
+      { label: 'Contribution to Owner Employees', key: 'owner_contribution_total', format: 'currency' },
+      { label: 'Employer Contribution to Non-owner Employees', key: 'nonowner_er_contribution_total', format: 'currency' },
+      { label: 'Efficiency: % of Total Allocated to Owner', key: 'owner_share_pct', format: 'percent' },
+      { label: 'Estimated Gross Tax Savings to Company', key: 'tax_savings_total', format: 'currency', cls: 'tax' }
+    ];
+
+    rows.forEach(function(r) {
+      h += '<tr><td class="label-cell">' + r.label + '</td>';
+      scenarios.forEach(function(s) {
+        var val = r.isStatic ? r.val : s[r.key];
+        var display;
+        if (r.format === 'currency') display = fmt.currency(val);
+        else if (r.format === 'percent') display = fmt.percent(val);
+        else display = esc(String(val != null ? val : ''));
+        h += '<td class="value-cell ' + (r.cls || '') + '">' + display + '</td>';
+      });
+      h += '</tr>';
+    });
+
+    h += '</tbody></table>';
+    el.innerHTML = h;
   }
 
-  // ---------- Bind data-bind elements ----------
-  function applyBindings(scope) {
-    const elements = (scope || document).querySelectorAll('[data-bind]');
-    elements.forEach(el => {
-      const path = el.getAttribute('data-bind');
-      const format = el.getAttribute('data-format');
-      const placeholder = el.getAttribute('data-placeholder');
-      const value = getPath(data, path);
+  function renderFees() {
+    var el = document.getElementById('fees-grid');
+    if (!el || N === 0) return;
 
-      if (value === null || value === undefined || value === '') {
-        if (placeholder) {
-          el.innerHTML = `<span class="placeholder">${placeholder}</span>`;
-        } else {
-          el.textContent = '';
-        }
-        return;
-      }
+    var perScen = data.fees.per_scenario || [];
 
-      let formatted;
-      if (format && fmt[format]) {
-        formatted = fmt[format](value);
-      } else {
-        formatted = String(value);
-      }
-      el.textContent = formatted;
+    var h = '<table class="fees-table">';
+    h += '<tr class="section-header"><td colspan="' + (N + 1) + '">*Fees Payable to Retirement Plan Specialists:</td></tr>';
+    h += '<thead><tr><th></th>';
+    scenarios.forEach(function(s) { h += '<th>' + esc(s.label || 'Option') + '</th>'; });
+    h += '</tr></thead><tbody>';
+
+    var feeRows = [
+      { label: 'One-time Plan Design &amp; Implementation Fee', key: 'one_time_design' },
+      { label: 'Annual Base Fee', shared: data.fees.annual_base },
+      { label: 'Participant Fees <em>(with</em> account balances<em>)</em>', key: 'participant_fee' },
+      { label: 'Profit Sharing \u2014 Non-Discrimination Cross Testing <span class="annotate">(Only when PS is applicable)</span>', key: 'cross_testing' },
+      { label: '3(16) Fiduciary Services <span class="annotate">(optional, not included in pricing)</span>', shared: data.fees.fiduciary_316 },
+      { label: '<strong>Estimated Annual Total</strong> <span style="color:var(--text-muted);font-weight:400;font-size:10px;">(actual fee may vary)</span>', key: 'annual_total', cls: 'total' }
+    ];
+
+    feeRows.forEach(function(r) {
+      h += '<tr><td class="label-cell">' + r.label + '</td>';
+      scenarios.forEach(function(s, i) {
+        var val = r.shared !== undefined ? r.shared : (perScen[i] ? perScen[i][r.key] : null);
+        h += '<td class="value-cell ' + (r.cls || '') + '">' + valOrNA(val) + '</td>';
+      });
+      h += '</tr>';
     });
+
+    h += '</tbody></table>';
+    el.innerHTML = h;
   }
 
-  // ---------- Render participant rows ----------
-  function renderParticipants() {
-    const tbody = document.getElementById('detail-tbody');
-    if (!tbody) return;
+  function renderBilling() {
+    var el = document.getElementById('billing-grid');
+    if (!el || N === 0) return;
 
-    const participants = data.participants || [];
-    const owners = participants.filter(p => p.is_owner);
-    const nonOwners = participants.filter(p => !p.is_owner);
+    var bf = data.fees.billing_frequency || {};
+    var perScen = data.fees.per_scenario || [];
 
-    let html = '';
+    var h = '<div style="font-size:12px;font-weight:700;border-bottom:1px solid var(--text);padding-bottom:3px;margin-bottom:8px;">Billing Frequency</div>';
+    h += '<table class="billing-table"><thead><tr><th></th>';
+    scenarios.forEach(function(s) { h += '<th>' + esc(s.label || 'Option') + '</th>'; });
+    h += '</tr></thead><tbody>';
 
-    // -- OWNER rows + subtotal --
-    let ownerSub = { comp: 0, deferral: 0, er_1: 0, er_2: 0, total: 0 };
-    owners.forEach(p => {
-      html += buildRow(p, true);
-      ownerSub.comp += p.plan_comp || 0;
-      ownerSub.deferral += (p.allocations && p.allocations.deferral) || 0;
-      ownerSub.er_1 += (p.allocations && p.allocations.er_1) || 0;
-      ownerSub.er_2 += (p.allocations && p.allocations.er_2) || 0;
-      ownerSub.total += (p.allocations && p.allocations.total) || 0;
+    h += '<tr><td class="freq">' + esc(bf.design || '') + '</td>';
+    scenarios.forEach(function(s, i) { h += '<td class="amt">' + valOrNA(perScen[i] ? perScen[i].one_time_design : null) + '</td>'; });
+    h += '</tr>';
+
+    h += '<tr class="tax-credit-row"><td colspan="' + (N + 1) + '">Potential Year One Tax Credit: <span style="float:right;">' + fmt.currency(data.tax_credits ? data.tax_credits.year_one : 0) + '</span></td></tr>';
+
+    h += '<tr><td class="freq">' + esc(bf.base || '') + '</td>';
+    scenarios.forEach(function() { h += '<td class="amt">' + fmt.currencyQ(data.fees.annual_base) + '</td>'; });
+    h += '</tr>';
+
+    h += '<tr><td class="freq">' + esc(bf.participant || '') + '</td>';
+    scenarios.forEach(function(s, i) { h += '<td class="amt">' + valOrNA(perScen[i] ? perScen[i].participant_fee : null) + '</td>'; });
+    h += '</tr>';
+
+    h += '<tr><td class="freq">' + esc(bf.cross_testing || '') + '</td>';
+    scenarios.forEach(function(s, i) { h += '<td class="amt">' + valOrNA(perScen[i] ? perScen[i].cross_testing : null) + '</td>'; });
+    h += '</tr>';
+
+    h += '<tr><td class="freq">' + esc(bf.fiduciary_316 || '') + '</td>';
+    scenarios.forEach(function() { h += '<td class="amt">' + fmt.currencyQ(data.fees.fiduciary_316) + '</td>'; });
+    h += '</tr>';
+
+    h += '<tr class="tax-credit-row"><td colspan="' + (N + 1) + '" style="padding-top:8px;">Potential Tax Credit In 5 Years: <span style="float:right;">' + fmt.currency(data.tax_credits ? data.tax_credits.five_year : 0) + '</span></td></tr>';
+
+    h += '</tbody></table>';
+    el.innerHTML = h;
+  }
+
+  // ================================================================
+  // PAGE 3: EMPLOYEE DETAIL TABLE
+  // ================================================================
+
+  function renderDetailHead() {
+    var thead = document.getElementById('detail-thead');
+    if (!thead || N === 0) return;
+
+    var r1 = '<tr><th rowspan="3" style="width:14%;text-align:left;padding-left:10px;">Name</th>';
+    r1 += '<th colspan="3" class="group-header">Date of</th>';
+    r1 += '<th rowspan="3" style="width:7%;background:#fafafa;">Plan Comp</th>';
+    scenarios.forEach(function(s, i) {
+      r1 += '<th colspan="' + scenarioCols[i].length + '" class="group-header">' + esc(s.plan_type || '') + '</th>';
     });
-    html += buildSubtotal('Owner Employees', ownerSub);
+    r1 += '</tr>';
 
-    // -- NON-OWNER rows --
-    let nonSub = { comp: 0, deferral: 0, er_1: 0, er_2: 0, total: 0 };
-    nonOwners.forEach(p => {
-      html += buildRow(p, false);
-      nonSub.comp += p.plan_comp || 0;
-      nonSub.deferral += (p.allocations && p.allocations.deferral) || 0;
-      nonSub.er_1 += (p.allocations && p.allocations.er_1) || 0;
-      nonSub.er_2 += (p.allocations && p.allocations.er_2) || 0;
-      nonSub.total += (p.allocations && p.allocations.total) || 0;
+    var r2 = '<tr><th colspan="3" class="option-label">&nbsp;</th>';
+    scenarios.forEach(function(s, i) {
+      r2 += '<th colspan="' + scenarioCols[i].length + '" class="option-label">' + esc(s.label || 'Option ' + (i + 1)) + '</th>';
     });
-    html += buildSubtotal('Non-Owner Employees', nonSub);
+    r2 += '</tr>';
+
+    var r3 = '<tr><th>Birth</th><th>Hire</th><th>Term</th>';
+    scenarios.forEach(function(s, i) {
+      var ch = s.column_headers || {};
+      scenarioCols[i].forEach(function(col) {
+        r3 += '<th>' + (col === 'total' ? 'Total $' : esc(ch[col] || col)) + '</th>';
+      });
+    });
+    r3 += '</tr>';
+
+    thead.innerHTML = r1 + r2 + r3;
+  }
+
+  function renderDetailBody() {
+    var tbody = document.getElementById('detail-tbody');
+    if (!tbody || N === 0) return;
+
+    var participants = data.participants || [];
+    var owners = participants.filter(function(p) { return p.is_owner; });
+    var nonOwners = participants.filter(function(p) { return !p.is_owner; });
+
+    var ownerSubs = initSubs();
+    var nonSubs = initSubs();
+    var html = '';
+
+    owners.forEach(function(p) {
+      html += buildDetailRow(p, true);
+      accumulateSubs(ownerSubs, p);
+    });
+    html += buildSubtotalRow('Owner Employees', ownerSubs);
+
+    nonOwners.forEach(function(p) {
+      html += buildDetailRow(p, false);
+      accumulateSubs(nonSubs, p);
+    });
+    html += buildSubtotalRow('Non-Owner Employees', nonSubs);
 
     tbody.innerHTML = html;
   }
 
-  function buildRow(p, isOwner) {
-    const rowClass = isOwner ? 'owner-row' : '';
-    const footnoteMarks = (p.footnote_marks || []).map(m => {
-      const color = m === '‡' ? 'var(--cetera-purple)' : 'var(--estimate-red)';
-      return `<sup style="color: ${color}; font-size: 8px; margin-left: 1px;">${m}</sup>`;
-    }).join('');
-    const attrMark = p.is_spouse_attribution && !(p.footnote_marks || []).includes('‡')
-      ? '<sup style="color: var(--cetera-purple); font-size: 8px; margin-left: 1px;">‡</sup>'
-      : '';
-    const a = p.allocations || {};
-    return `
-      <tr class="${rowClass}">
-        <td>${escapeHtml(p.name)}${footnoteMarks}${attrMark}</td>
-        <td class="center">${fmt.date(p.dob)}</td>
-        <td class="center">${fmt.date(p.hire_date)}</td>
-        <td class="center">${p.term_date ? fmt.date(p.term_date) : '—'}</td>
-        <td class="right col-plan-comp">${fmt.currency(p.plan_comp)}</td>
-        <td class="right">${fmt.currency(a.deferral || 0)}</td>
-        <td class="right">${fmt.currency(a.er_1 || 0)}</td>
-        <td class="right">${fmt.currency(a.er_2 || 0)}</td>
-        <td class="right">${fmt.currency(a.total || 0)}</td>
-      </tr>
-    `;
-  }
-
-  function buildSubtotal(label, s) {
-    return `
-      <tr class="subtotal-row">
-        <td>${escapeHtml(label)}</td>
-        <td></td><td></td><td></td>
-        <td class="right col-plan-comp">${fmt.currency(s.comp)}</td>
-        <td class="right">${fmt.currency(s.deferral)}</td>
-        <td class="right">${fmt.currency(s.er_1)}</td>
-        <td class="right">${fmt.currency(s.er_2)}</td>
-        <td class="right">${fmt.currency(s.total)}</td>
-      </tr>
-    `;
-  }
-
-  function escapeHtml(s) {
-    return String(s || '')
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-
-  // ---------- Render footnotes ----------
-  function renderFootnotes() {
-    const el = document.getElementById('footnotes');
-    if (!el) return;
-    const notes = data.compliance_notes || [];
-    const markDefs = [
-      { mark: '*', color: 'var(--estimate-red)' },
-      { mark: '†', color: 'var(--estimate-red)' },
-      { mark: '‡', color: 'var(--cetera-purple)' }
-    ];
-    let html = '';
-    notes.forEach((note, i) => {
-      const m = markDefs[i] || { mark: '', color: 'var(--text-muted)' };
-      html += `<strong class="ref" style="color: ${m.color}; margin-right: 4px;">${m.mark}</strong>${escapeHtml(note)}&nbsp;&nbsp;`;
+  function initSubs() {
+    return scenarios.map(function(s, i) {
+      var sub = { comp: 0, cols: {} };
+      scenarioCols[i].forEach(function(c) { sub.cols[c] = 0; });
+      return sub;
     });
-    // Append IRS limit reference text, data-driven from irs_limits block
-    const limits = data.irs_limits;
+  }
+
+  function buildDetailRow(p, isOwner) {
+    var cls = isOwner ? 'owner-row' : '';
+    var footnoteMarks = (p.footnote_marks || []).map(function(m) {
+      var color = m === '\u2021' ? 'var(--cetera-purple)' : 'var(--estimate-red)';
+      return '<sup style="color:' + color + ';font-size:8px;margin-left:1px;">' + m + '</sup>';
+    }).join('');
+    var attrMark = p.is_spouse_attribution && !(p.footnote_marks || []).includes('\u2021')
+      ? '<sup style="color:var(--cetera-purple);font-size:8px;margin-left:1px;">\u2021</sup>' : '';
+
+    var allocs = Array.isArray(p.allocations) ? p.allocations : [p.allocations || {}];
+
+    var h = '<tr class="' + cls + '">';
+    h += '<td>' + esc(p.name) + footnoteMarks + attrMark + '</td>';
+    h += '<td class="center">' + fmt.date(p.dob) + '</td>';
+    h += '<td class="center">' + fmt.date(p.hire_date) + '</td>';
+    h += '<td class="center">' + (p.term_date ? fmt.date(p.term_date) : '\u2014') + '</td>';
+    h += '<td class="right col-plan-comp">' + fmt.currency(p.plan_comp) + '</td>';
+
+    scenarios.forEach(function(s, i) {
+      var a = allocs[i] || {};
+      scenarioCols[i].forEach(function(col, ci) {
+        var startCls = ci === 0 ? ' col-scenario-start' : '';
+        var val = col === 'total' ? (a.total || 0) : (a[col] || 0);
+        h += '<td class="right' + startCls + '">' + fmt.currency(val) + '</td>';
+      });
+    });
+
+    h += '</tr>';
+    return h;
+  }
+
+  function accumulateSubs(subs, p) {
+    var allocs = Array.isArray(p.allocations) ? p.allocations : [p.allocations || {}];
+    subs.forEach(function(sub, i) {
+      sub.comp += p.plan_comp || 0;
+      var a = allocs[i] || {};
+      scenarioCols[i].forEach(function(col) {
+        sub.cols[col] = (sub.cols[col] || 0) + (col === 'total' ? (a.total || 0) : (a[col] || 0));
+      });
+    });
+  }
+
+  function buildSubtotalRow(label, subs) {
+    var h = '<tr class="subtotal-row"><td>' + esc(label) + '</td><td></td><td></td><td></td>';
+    h += '<td class="right col-plan-comp">' + fmt.currency(subs[0].comp) + '</td>';
+    scenarios.forEach(function(s, i) {
+      scenarioCols[i].forEach(function(col, ci) {
+        var startCls = ci === 0 ? ' col-scenario-start' : '';
+        h += '<td class="right' + startCls + '">' + fmt.currency(subs[i].cols[col] || 0) + '</td>';
+      });
+    });
+    h += '</tr>';
+    return h;
+  }
+
+  // ================================================================
+  // FOOTNOTES
+  // ================================================================
+
+  function renderFootnotes() {
+    var el = document.getElementById('footnotes');
+    if (!el) return;
+    var notes = data.compliance_notes || [];
+    var markDefs = [
+      { mark: '*', color: 'var(--estimate-red)' },
+      { mark: '\u2020', color: 'var(--estimate-red)' },
+      { mark: '\u2021', color: 'var(--cetera-purple)' }
+    ];
+    var html = '';
+    notes.forEach(function(note, i) {
+      var m = markDefs[i] || { mark: '', color: 'var(--text-muted)' };
+      html += '<strong style="color:' + m.color + ';margin-right:4px;">' + m.mark + '</strong>' + esc(note) + '&nbsp;&nbsp;';
+    });
+    var limits = data.irs_limits;
     if (limits && limits.year) {
-      const deferral = fmt.currency(limits.deferral_402g);
-      const catchMid = fmt.currency(limits.catch_up_50_59);
-      const catchHigh = fmt.currency(limits.catch_up_60_63);
-      html += `<br>Participants may choose to contribute up to the annual 402(g) limit set by the IRS. In ${limits.year}, this is ${deferral} with catch-up amounts: ${catchMid} (ages 50–59) or ${catchHigh} (ages 60–63 SECURE 2.0 super catch-up).`;
+      html += '<br>Participants may choose to contribute up to the annual 402(g) limit set by the IRS. In ' + limits.year + ', this is ' + fmt.currency(limits.deferral_402g) + ' with catch-up amounts: ' + fmt.currency(limits.catch_up_50_59) + ' (ages 50\u201359) or ' + fmt.currency(limits.catch_up_60_63) + ' (ages 60\u201363 SECURE 2.0 super catch-up).';
     }
     el.innerHTML = html;
   }
 
-  // ---------- Render plan-at-a-glance table and chart ----------
+  // ================================================================
+  // PLAN AT A GLANCE (multi-scenario)
+  // ================================================================
+
   function renderGlance() {
-    const table = document.getElementById('glance-table');
-    const chart = document.getElementById('glance-chart');
-    if (!table || !chart) return;
+    var table = document.getElementById('glance-table');
+    var chart = document.getElementById('glance-chart');
+    if (!table || !chart || N === 0) return;
 
-    const s = data.scenario;
-    const owner = s.owner_contribution_total || 0;
-    const nonOwner = s.nonowner_er_contribution_total || 0;
-    const total = owner + nonOwner;
-    const ownerPct = total > 0 ? Math.round((owner / total) * 100) : 0;
-    const nonOwnerPct = total > 0 ? 100 - ownerPct : 0;
-    const tax = s.tax_savings_total || 0;
+    var tHtml = '';
+    var allValues = [];
 
-    table.innerHTML = `
-      <tr><td>Option 1 Owner Contribution</td><td>${fmt.currency(owner)}</td><td>${ownerPct}%</td></tr>
-      <tr><td>Option 1 Non-Owner Contribution</td><td>${fmt.currency(nonOwner)}</td><td>${nonOwnerPct}%</td></tr>
-      <tr><td>Option 1 Tax Savings Estimate</td><td style="color: var(--money-green);">${fmt.currency(tax)}</td><td></td></tr>
-    `;
+    scenarios.forEach(function(s, i) {
+      var owner = Number(s.owner_contribution_total) || 0;
+      var nonOwner = Number(s.nonowner_er_contribution_total) || 0;
+      var total = owner + nonOwner;
+      var ownerPct = total > 0 ? Math.round((owner / total) * 100) : 0;
+      var nonOwnerPct = total > 0 ? 100 - ownerPct : 0;
+      var tax = Number(s.tax_savings_total) || 0;
+      var lbl = s.label || ('Option ' + (i + 1));
 
-    // Chart: 3 bars, heights relative to the max value (as pixels, not %)
-    const max = Math.max(owner, nonOwner, tax, 1);
-    const chartH = 75; // px reserved for bar area (value + label take ~30px)
-    const bar = (val, cls, label) => `
-      <div class="glance-bar-group">
-        <div class="glance-bar-val">${fmt.currency(val)}</div>
-        <div class="glance-bar ${cls}" style="height: ${(val / max) * chartH}px;"></div>
-        <div class="glance-bar-label">${label}</div>
-      </div>
-    `;
-    chart.innerHTML =
-      bar(owner, 'owner', 'Owner') +
-      bar(nonOwner, 'non-owner', 'Non-Owner') +
-      bar(tax, 'tax', 'Tax Savings');
+      tHtml += '<tr><td>' + esc(lbl) + ' Owner Contribution</td><td>' + fmt.currency(owner) + '</td><td>' + ownerPct + '%</td></tr>';
+      tHtml += '<tr><td>' + esc(lbl) + ' Non-Owner Contribution</td><td>' + fmt.currency(nonOwner) + '</td><td>' + nonOwnerPct + '%</td></tr>';
+      tHtml += '<tr><td>' + esc(lbl) + ' Tax Savings Estimate</td><td style="color:var(--money-green);">' + fmt.currency(tax) + '</td><td></td></tr>';
+
+      allValues.push(owner, nonOwner, tax);
+    });
+    table.innerHTML = tHtml;
+
+    var max = Math.max.apply(null, allValues.concat([1]));
+    var chartH = 75;
+
+    function bar(val, color, label) {
+      return '<div class="glance-bar-group">' +
+        '<div class="glance-bar-val">' + fmt.currency(val) + '</div>' +
+        '<div class="glance-bar" style="height:' + ((val / max) * chartH) + 'px;background:' + color + ';"></div>' +
+        '<div class="glance-bar-label">' + label + '</div></div>';
+    }
+
+    var cHtml = '';
+    scenarios.forEach(function(s, i) {
+      if (i > 0) cHtml += '<div class="glance-divider"></div>';
+      var owner = Number(s.owner_contribution_total) || 0;
+      var nonOwner = Number(s.nonowner_er_contribution_total) || 0;
+      var tax = Number(s.tax_savings_total) || 0;
+      var lbl = s.label || ('Opt ' + (i + 1));
+      cHtml += bar(owner, '#2a4d7a', lbl + '<br>Owner');
+      cHtml += bar(nonOwner, '#c26a63', lbl + '<br>Non-Owner');
+      cHtml += bar(tax, '#5f7a3a', lbl + '<br>Tax Savings');
+    });
+    chart.innerHTML = cHtml;
   }
 
   // ---------- Run ----------
-  applyBindings();
-  renderParticipants();
+  renderOppSummary();
+  renderFees();
+  renderBilling();
+  renderDetailHead();
+  renderDetailBody();
   renderFootnotes();
   renderGlance();
 })();
