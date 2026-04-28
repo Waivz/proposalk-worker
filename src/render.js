@@ -50,8 +50,9 @@ export const ADAPTER_REGISTRY = {
       { ref: './cover-handshake.jpg', r2: 'cetera/cover-handshake.jpg', mime: 'image/jpeg' },
       { ref: './cetera-logo.svg', r2: 'cetera/cetera-logo.svg', mime: 'image/svg+xml' }
     ],
-    dynamic_pages: 3,
-    boilerplate_pages: 19
+    dynamic_pages: 4,
+    boilerplate_pages: 19,
+    boilerplate_skip: 1
   }
   // When a second partner arrives, add an entry here. No other code changes
   // are needed unless the partner's rendering needs differ from Cetera's.
@@ -192,7 +193,10 @@ async function mergePdfs(dynamicBytes, boilerBytes) {
   for (const p of dynamicPages) merged.addPage(p);
 
   const boilerDoc = await PDFDocument.load(boilerBytes);
-  const boilerPages = await merged.copyPages(boilerDoc, boilerDoc.getPageIndices());
+  const boilerIndices = boilerDoc.getPageIndices();
+  const skipCount = adapter?.boilerplate_skip || 0;
+  const filteredIndices = skipCount > 0 ? boilerIndices.slice(skipCount) : boilerIndices;
+  const boilerPages = await merged.copyPages(boilerDoc, filteredIndices);
   for (const p of boilerPages) merged.addPage(p);
 
   // Set some doc-level metadata that shows up in PDF viewers.
