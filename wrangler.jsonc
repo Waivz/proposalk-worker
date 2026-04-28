@@ -45,7 +45,7 @@
     "VERSION": "0.1.0",
     // Comma-separated list of allowed origins for CORS + /render auth.
     // Dev value; prod should be overridden via environment-specific config.
-    "ALLOWED_ORIGINS": "https://waivz.ai,https://designk.waivz.ai,http://localhost:8787,http://localhost:5173,null"
+    "ALLOWED_ORIGINS": "https://waivz.ai,https://designk-pro.pages.dev,https://designk.waivz.ai,http://localhost:8787,http://localhost:5173,null"
   },
 
   "observability": {
